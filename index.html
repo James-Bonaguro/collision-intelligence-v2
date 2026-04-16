@@ -392,7 +392,7 @@
     @media (min-width: 1024px) { .thesis-quote { font-size: 36px; } }
 
     /* ============ READING GUIDE ============ */
-    .guide { background: white; }
+    .guide { background: var(--bg-secondary); }
     .guide-intro {
         color: var(--text-secondary);
         font-size: 16px;
@@ -409,17 +409,17 @@
         align-items: flex-start;
         gap: 16px;
         padding: 20px 22px;
-        background: var(--bg-secondary);
+        background: white;
         border-radius: 8px;
-        border: 1px solid var(--border-light);
+        border: 1px solid var(--border-medium);
         text-decoration: none;
         color: var(--text-primary);
-        transition: border-color 0.15s, background 0.15s, transform 0.15s;
+        transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
         min-height: 72px;
     }
     .guide-step:hover {
         border-color: var(--accent-charcoal);
-        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         transform: translateY(-2px);
     }
     .guide-step-num {
@@ -914,11 +914,6 @@
             </a>
         </div>
 
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="the-problem.html" class="cta-primary">
-                Start with the problem <span class="cta-arrow">→</span>
-            </a>
-        </div>
     </div>
 </section>
 
