@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Collision Intelligence</title>
+<meta name="description" content="The simple version of what's under the hood — and who built it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f6f7f9;
+        --bg-tertiary: #eceef2;
+        --bg-dark: #1a1f2b;
+        --accent-charcoal: #1a1f2b;
+        --accent-steel: #334155;
+        --accent-crimson: #b91c1c;
+        --accent-amber: #d97706;
+        --accent-emerald: #047857;
+        --accent-blue: #1e40af;
+        --text-primary: #0f172a;
+        --text-secondary: #334155;
+        --text-muted: #64748b;
+        --text-inverse: #f8fafc;
+        --border-light: #e2e8f0;
+        --border-medium: #cbd5e1;
+        --border-strong: #94a3b8;
+    }
+
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* NAV */
+    .nav { background: var(--accent-charcoal); padding: 14px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .nav-brand { font-size: 12px; font-weight: 800; letter-spacing: 1.8px; color: white; text-decoration: none; }
+    .nav-glossary { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; min-height: 40px; display: inline-flex; align-items: center; }
+    .nav-glossary:hover { color: white; border-color: white; }
+
+    /* PROGRESS */
+    .progress { background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); padding: 14px 0; }
+    .progress-inner { max-width: 680px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
+    .progress-track { flex: 1; height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent-crimson); border-radius: 2px; }
+    .progress-label { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
+
+    /* HERO */
+    .page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border-light); }
+    .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 18px; }
+    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 24px; }
+    .hero-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); }
+    .dropcap { float: left; font-size: 68px; font-weight: 800; line-height: 0.9; padding: 6px 10px 0 0; color: var(--accent-charcoal); }
+    @media (min-width: 768px) {
+        .page-hero { padding: 80px 0 56px; }
+        .hero-title { font-size: 44px; }
+        .hero-lede { font-size: 20px; }
+    }
+
+    /* SECTION */
+    section { padding: 56px 0; }
+    @media (min-width: 768px) { section { padding: 80px 0; } }
+
+    .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 16px; }
+    .section-title { font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; color: var(--text-primary); margin-bottom: 24px; }
+    .section-body { font-size: 18px; line-height: 1.7; color: var(--text-secondary); }
+    .section-body p + p { margin-top: 18px; }
+    @media (min-width: 768px) { .section-title { font-size: 36px; } }
+
+    /* THREE LAYER DIAGRAM */
+    .diagram-section {
+        background: var(--bg-secondary);
+    }
+    .layer-stack {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+    .layer {
+        background: white;
+        border: 2px solid var(--border-light);
+        padding: 28px 24px;
+        position: relative;
+    }
+    .layer:first-child { border-radius: 12px 12px 0 0; }
+    .layer:last-child { border-radius: 0 0 12px 12px; }
+    .layer + .layer {
+        border-top: none;
+    }
+    .layer-arrow {
+        position: absolute;
+        left: 50%;
+        bottom: -14px;
+        transform: translateX(-50%);
+        width: 28px;
+        height: 28px;
+        background: var(--accent-crimson);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        z-index: 2;
+        box-shadow: 0 2px 6px rgba(185,28,28,0.3);
+    }
+    .layer-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        color: var(--accent-crimson);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .layer-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 10px;
+        line-height: 1.25;
+    }
+    .layer-desc {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--text-secondary);
+    }
+    .layer-examples {
+        margin-top: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .layer-example {
+        background: var(--bg-tertiary);
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+
+    /* ANALOGY BOX */
+    .analogy {
+        background: var(--accent-charcoal);
+        color: white;
+        padding: 36px 28px;
+        border-radius: 12px;
+        margin-top: 40px;
+    }
+    .analogy-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
+        margin-bottom: 12px;
+    }
+    .analogy-body {
+        font-size: 18px;
+        line-height: 1.6;
+        color: white;
+    }
+    .analogy-body strong {
+        color: var(--accent-crimson);
+    }
+
+    /* ABOUT SECTION */
+    .about { background: white; }
+    .about-intro {
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+    }
+    .cred-list {
+        display: grid;
+        gap: 16px;
+        margin-top: 32px;
+    }
+    .cred-item {
+        background: var(--bg-secondary);
+        padding: 20px 22px;
+        border-radius: 10px;
+        border-left: 3px solid var(--accent-charcoal);
+    }
+    .cred-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 6px;
+    }
+    .cred-desc {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+    }
+
+    /* SECURITY SECTION */
+    .security { background: var(--bg-secondary); }
+    .security-list {
+        margin-top: 32px;
+        display: grid;
+        gap: 14px;
+    }
+    .security-item {
+        background: white;
+        padding: 20px 22px;
+        border-radius: 8px;
+        border: 1px solid var(--border-light);
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    .security-icon {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--accent-emerald);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .security-body { flex: 1; }
+    .security-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+    }
+    .security-desc {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+    }
+
+    /* FAQ */
+    .faq { background: white; }
+    .faq-list {
+        margin-top: 32px;
+    }
+    .faq-item {
+        border-bottom: 1px solid var(--border-light);
+        padding: 24px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border-light); }
+    .faq-q {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+    .faq-a {
+        font-size: 16px;
+        line-height: 1.65;
+        color: var(--text-secondary);
+    }
+
+    /* PAGE NAV */
+    .page-nav { padding: 40px 0 56px; display: flex; gap: 12px; }
+    .page-nav-link { flex: 1; min-height: 64px; padding: 18px 20px; border-radius: 10px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background 0.15s, border-color 0.15s; border: 1px solid var(--border-medium); background: white; }
+    .page-nav-prev { text-align: left; color: var(--text-secondary); }
+    .page-nav-prev:hover { border-color: var(--accent-charcoal); }
+    .page-nav-next { background: var(--accent-charcoal); color: white; text-align: right; border-color: var(--accent-charcoal); }
+    .page-nav-next:hover { background: #0f1218; }
+    .page-nav-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
+    .page-nav-title { font-size: 15px; font-weight: 700; line-height: 1.3; }
+    @media (min-width: 640px) { .page-nav-title { font-size: 16px; } }
+
+    /* FOOTER */
+    .footer { background: var(--accent-charcoal); color: var(--text-inverse); padding: 40px 0; }
+    .footer-brand { font-size: 13px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 10px; }
+    .footer-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; padding: 8px 0; min-height: 40px; display: inline-flex; align-items: center; }
+    .footer-links a:hover { color: white; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">COLLISION INTELLIGENCE</a>
+        <a href="glossary.html" class="nav-glossary">Glossary</a>
+    </div>
+</nav>
+
+<div class="progress">
+    <div class="progress-inner">
+        <div class="progress-track"><div class="progress-fill" style="width: 80%"></div></div>
+        <div class="progress-label">Page 4 of 5</div>
+    </div>
+</div>
+
+<!-- HERO -->
+<header class="page-hero">
+    <div class="container">
+        <div class="hero-eyebrow">How It Works</div>
+        <h1 class="hero-title">The simple version of what's under the hood.</h1>
+        <p class="hero-lede">
+            <span class="dropcap">Y</span>ou don't need to understand how any of this works to use it. But you might want to — if only so you can explain it to your partner, your lender, or your insurance rep when they ask. Here's the whole thing in three sections, one page.
+        </p>
+    </div>
+</header>
+
+<!-- THREE LAYER DIAGRAM -->
+<section class="diagram-section">
+    <div class="container">
+        <div class="section-eyebrow">The machinery</div>
+        <h2 class="section-title">Three layers. That's it.</h2>
+        <p class="section-body">Every agent works the same way. Something happens in your shop. An AI reads it and decides what to do. The decision shows up somewhere you can see.</p>
+
+        <div class="layer-stack">
+            <div class="layer">
+                <div class="layer-label">Layer 1 · The Trigger</div>
+                <h3 class="layer-title">Something happens in your shop.</h3>
+                <p class="layer-desc">A new estimate is saved. A sublet invoice lands in email. A completion date changes. A VIN is decoded as an EV. These are real events that already happen — we just listen for them.</p>
+                <div class="layer-examples">
+                    <span class="layer-example">estimate_saved</span>
+                    <span class="layer-example">email_received</span>
+                    <span class="layer-example">ecd_changed</span>
+                    <span class="layer-example">vin_decoded</span>
+                </div>
+                <div class="layer-arrow">↓</div>
+            </div>
+            <div class="layer">
+                <div class="layer-label">Layer 2 · The Agent</div>
+                <h3 class="layer-title">An AI reads the event and decides what to do.</h3>
+                <p class="layer-desc">The agent is an instance of Claude — Anthropic's AI model, the one behind Claude Code. It receives the event, pulls relevant data (your DRP rules, the vehicle's value, the official labor-time rules), and decides on an action. Think of it as a very fast, very thorough service advisor who has read every manual.</p>
+                <div class="layer-examples">
+                    <span class="layer-example">pull DRP agreement</span>
+                    <span class="layer-example">query P-Pages</span>
+                    <span class="layer-example">calculate markup</span>
+                    <span class="layer-example">draft action</span>
+                </div>
+                <div class="layer-arrow">↓</div>
+            </div>
+            <div class="layer">
+                <div class="layer-label">Layer 3 · The Output</div>
+                <h3 class="layer-title">The decision shows up where you can see it.</h3>
+                <p class="layer-desc">The agent doesn't work in secret. Every action shows up somewhere visible: a Slack message, a line added to an estimate, a text to a customer, a note in your insurer portal. You see it. You can review it. You can undo it.</p>
+                <div class="layer-examples">
+                    <span class="layer-example">slack notification</span>
+                    <span class="layer-example">estimate line added</span>
+                    <span class="layer-example">SMS to customer</span>
+                    <span class="layer-example">portal note</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="analogy">
+            <div class="analogy-label">Plain-English analogy</div>
+            <div class="analogy-body">
+                Think of the agent as a <strong>very senior service advisor</strong> who never sleeps, has read every P-Page, memorized every DRP agreement, and responds to every event in your shop within seconds — but can only do things you already explicitly authorized them to do.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+    <div class="container">
+        <div class="section-eyebrow">Who built this</div>
+        <h2 class="section-title">James Bonaguro. Intersection Strategies LLC.</h2>
+        <p class="about-intro">
+            Self-taught builder. Founder of Intersection Strategies. The reason this works for collision shops specifically — rather than being another generic AI consultancy — is that my background is already sitting inside the industry.
+        </p>
+
+        <div class="cred-list">
+            <div class="cred-item">
+                <div class="cred-title">CCC Intelligent Solutions — Go-to-Market Strategy</div>
+                <div class="cred-desc">Worked inside the company that most of your estimating software comes from. Know how the data flows, know the DRP contracts, know what the insurers actually look at when they approve or reject a line.</div>
+            </div>
+            <div class="cred-item">
+                <div class="cred-title">Family-Owned Mercedes-Benz Dealerships</div>
+                <div class="cred-desc">Grew up in the industry. Understand what an owner cares about, what a service manager fights about, what a tech actually needs. Not a consultant who learned the words last quarter.</div>
+            </div>
+            <div class="cred-item">
+                <div class="cred-title">SullivanCotter — Healthcare Compensation Analytics</div>
+                <div class="cred-desc">Before CCC, spent years doing analytics for highly-regulated healthcare operations. Built the habit of getting audited numbers right the first time. Same habit applies here.</div>
+            </div>
+            <div class="cred-item">
+                <div class="cred-title">AI Systems Design — Anthropic Claude Platform</div>
+                <div class="cred-desc">Currently specialized in building custom agent systems on Claude's platform. This hub exists because Anthropic dropped a new product called "Routines" the same week I was researching how to solve these specific shop problems. Convergence.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECURITY -->
+<section class="security">
+    <div class="container">
+        <div class="section-eyebrow">Trust &amp; Security</div>
+        <h2 class="section-title">What the agent can and can't see.</h2>
+        <p class="section-body">Fair question. Here's the honest answer, no asterisks.</p>
+
+        <div class="security-list">
+            <div class="security-item">
+                <div class="security-icon">✓</div>
+                <div class="security-body">
+                    <div class="security-title">Your customer data stays inside your existing software</div>
+                    <div class="security-desc">The agent reads events from your estimating software the same way any integration does — through authorized APIs. Nothing is copied to our servers permanently.</div>
+                </div>
+            </div>
+            <div class="security-item">
+                <div class="security-icon">✓</div>
+                <div class="security-body">
+                    <div class="security-title">You can review every action taken</div>
+                    <div class="security-desc">Every line the agent adds, every text it sends, every portal note it posts — there's an audit log. You or your manager can see exactly what happened and when.</div>
+                </div>
+            </div>
+            <div class="security-item">
+                <div class="security-icon">✓</div>
+                <div class="security-body">
+                    <div class="security-title">You can kill the agent in one click</div>
+                    <div class="security-desc">Something goes wrong, something doesn't feel right — there's a pause button. The agent stops immediately. No contracts, no tickets.</div>
+                </div>
+            </div>
+            <div class="security-item">
+                <div class="security-icon">✓</div>
+                <div class="security-body">
+                    <div class="security-title">No training on your data</div>
+                    <div class="security-desc">Your shop's data is not used to train any AI model. Not ours, not Anthropic's, not anyone's. Standard enterprise-grade data handling.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+    <div class="container">
+        <div class="section-eyebrow">Common questions</div>
+        <h2 class="section-title">What shop owners usually ask first.</h2>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-q">Do I have to replace my estimating software?</div>
+                <div class="faq-a">No. The agent works with whatever you're using — CCC ONE, Mitchell, Audatex. It reads the data, it doesn't replace the tool. Your estimators keep doing their jobs the same way.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What if my staff doesn't want to use it?</div>
+                <div class="faq-a">They don't have to "use" anything. The agent acts in the background. Your estimator sees a notification, glances, moves on. That's the interaction. No software to learn, no buttons to click.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What happens if the agent gets something wrong?</div>
+                <div class="faq-a">In the first four weeks, the agent runs in "shadow mode" — every action is a suggestion your estimator approves. We use those four weeks to tune it. Once it's live, every action is logged and reversible. If it makes a mistake, we see it, we fix it, we refine the agent.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What about my DRP agreements? Can the agent really read them?</div>
+                <div class="faq-a">Yes. We upload your contracts during Week 1 setup and the agent queries them in real-time. If a carrier changes their DRP terms, you update the document and the agent picks it up automatically.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Is this compliant with how insurers want me to operate?</div>
+                <div class="faq-a">Every action the agent takes is something your staff would be doing anyway if they had infinite time. Adding P-Page lines with citations is standard practice. Extending rentals through ARMS is standard practice. The agent just does it faster and more consistently. If anything, insurer audits get cleaner because there's a perfect log.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PAGE NAV -->
+<div class="container">
+    <div class="page-nav">
+        <a href="the-math.html" class="page-nav-link page-nav-prev">
+            <div class="page-nav-label">← Previous</div>
+            <div class="page-nav-title">The Math</div>
+        </a>
+        <a href="glossary.html" class="page-nav-link page-nav-next">
+            <div class="page-nav-label">Page 5 of 5 →</div>
+            <div class="page-nav-title">Glossary</div>
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-brand">COLLISION INTELLIGENCE</div>
+        <div class="footer-sub">Intersection Strategies LLC · Version 2.0 — April 2026 · Field Edition</div>
+        <div class="footer-links">
+            <a href="index.html">Start Over</a>
+            <a href="the-problem.html">The Problem</a>
+            <a href="the-agents.html">The Agents</a>
+            <a href="the-math.html">The Math</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="mailto:james@intersection-strategies.com">Contact</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
