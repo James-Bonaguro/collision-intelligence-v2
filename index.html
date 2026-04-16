@@ -457,29 +457,6 @@
         .guide-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     }
 
-    /* ============ PILOT CTA ============ */
-    .final-cta {
-        background: var(--bg-secondary);
-        padding: 64px 0;
-        border-top: 1px solid var(--border-light);
-    }
-    .final-cta-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .final-cta-title {
-        font-size: 26px;
-        font-weight: 800;
-        color: var(--text-primary);
-        margin-bottom: 18px;
-        line-height: 1.2;
-        letter-spacing: -0.01em;
-    }
-    .final-cta-body {
-        font-size: 16px;
-        color: var(--text-secondary);
-        margin-bottom: 32px;
-        line-height: 1.65;
-    }
-    @media (min-width: 1024px) { .final-cta-title { font-size: 32px; } }
-
     /* ============ FOOTER ============ */
     .footer {
         background: var(--accent-charcoal);
@@ -675,7 +652,7 @@
     }
     .managed-tile {
         background: white;
-        border: 2px solid var(--accent-charcoal);
+        border: 1px solid var(--border-medium);
         border-radius: 12px;
         padding: 26px 22px;
         text-align: center;
@@ -707,7 +684,7 @@
         .managed-title { font-size: 30px; }
         .managed-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
         .managed-tile { padding: 32px 26px; }
-        .managed-x { font-size: 56px; }
+        .managed-x { font-size: 40px; }
         .managed-claim { font-size: 20px; }
     }
 </style>
@@ -732,9 +709,6 @@
         <p class="hero-lede">
             Autonomous agents wired to CCC ONE, Mitchell, and Audatex — watching your workfiles, scrubbing your estimates, defending your teardowns, syncing the rental and the carrier portal the moment an ECD slips. The model is the commodity. The trigger is the product. This is the trigger layer your shop has been missing.
         </p>
-        <a href="the-problem.html" class="cta-primary">
-            Read the briefing <span class="cta-arrow">→</span>
-        </a>
         <div class="hero-meta">
             <div class="hero-meta-item">
                 <span class="hero-meta-label">Audience</span>
@@ -888,21 +862,14 @@
             The trigger is the <span class="crimson">product</span>.
         </h2>
         <div class="thesis-attr">Intersection Strategies · Guiding Principle</div>
-        <div class="thesis-body">
-            <p>Every modern collision shop has the same operating problem: a software stack tilted toward the carrier, a DRP matrix built for severity containment, and an estimator stuck in the middle with a supplement pad and a stopwatch. The estimating systems are mature and API-ready. What's missing is a <strong>shop-friendly reflex layer</strong> sitting on top — autonomous agents that watch the workfile, catch the leaks, draft the supplements, defend the teardown, and keep the customer informed.</p>
-            <p>This briefing maps the five leaks that drain margin out of every collision operation in 2026 — and the five named agents, each wired to a specific real-world trigger, that plug them. The model is a commodity. The trigger is what your shop has been missing.</p>
-        </div>
     </div>
 </section>
 
 <!-- ============ READING GUIDE ============ -->
 <section class="guide">
     <div class="container">
-        <div class="section-eyebrow">How this briefing reads</div>
-        <h2 class="section-title">Five pages. Twelve minutes. Read in order.</h2>
-        <p class="guide-intro">
-            Every page answers one question with a declarative headline and lays the evidence underneath. Industry vocabulary is used correctly throughout — first occurrence of every term is tooltipped; the glossary is one tap away from any page.
-        </p>
+        <div class="section-eyebrow">Inside the briefing</div>
+        <h2 class="section-title">Five pages. Start anywhere, or read in order.</h2>
 
         <div class="guide-grid">
             <a href="the-problem.html" class="guide-step">
@@ -946,17 +913,8 @@
                 <div class="guide-step-arrow">→</div>
             </a>
         </div>
-    </div>
-</section>
 
-<!-- ============ FINAL CTA ============ -->
-<section class="final-cta">
-    <div class="container">
-        <div class="final-cta-inner">
-            <h2 class="final-cta-title">Twelve minutes. Five pages. Then we talk numbers.</h2>
-            <p class="final-cta-body">
-                If the leaks are real in your shop and the math survives contact with your actual RO volume, the next step is a 30-minute conversation. No pitch deck. We look at your real numbers together and decide if a 90-day pilot makes sense.
-            </p>
+        <div style="text-align: center; margin-top: 40px;">
             <a href="the-problem.html" class="cta-primary">
                 Start with the problem <span class="cta-arrow">→</span>
             </a>
