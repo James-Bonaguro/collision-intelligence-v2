@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Agents — Collision Intelligence</title>
-<meta name="description" content="Five autonomous agents. One system. Each one replaces a specific recurring task in your collision shop.">
+<title>The Five Agents — Collision Intelligence</title>
+<meta name="description" content="Five purpose-built agents wired to real shop events. Agent 04 — the E01 Pre-Cognition & Teardown Defender — leads the fleet. Each agent is a trigger plus a routine plus an output.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -15,6 +15,7 @@
         --bg-primary: #ffffff;
         --bg-secondary: #f6f7f9;
         --bg-tertiary: #eceef2;
+        --bg-card: #ffffff;
         --bg-dark: #1a1f2b;
         --accent-charcoal: #1a1f2b;
         --accent-steel: #334155;
@@ -35,20 +36,24 @@
 
     body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 18px;
-        line-height: 1.7;
+        font-size: 17px;
+        line-height: 1.65;
         color: var(--text-primary);
         background: var(--bg-primary);
         -webkit-font-smoothing: antialiased;
     }
+    @media (min-width: 1024px) { body { font-size: 16px; } }
 
     .container {
-        max-width: 680px;
+        max-width: 960px;
         margin: 0 auto;
         padding: 0 20px;
     }
+    @media (min-width: 1024px) {
+        .container { padding: 0 32px; }
+    }
 
-    /* NAV */
+    /* ============ NAV ============ */
     .nav {
         background: var(--accent-charcoal);
         padding: 14px 0;
@@ -58,7 +63,7 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
     .nav-inner {
-        max-width: 1040px;
+        max-width: 1120px;
         margin: 0 auto;
         padding: 0 20px;
         display: flex;
@@ -78,7 +83,7 @@
         font-weight: 500;
         color: rgba(255,255,255,0.85);
         text-decoration: none;
-        padding: 10px 14px;
+        padding: 8px 14px;
         border: 1px solid rgba(255,255,255,0.25);
         border-radius: 6px;
         min-height: 40px;
@@ -87,14 +92,14 @@
     }
     .nav-glossary:hover { color: white; border-color: white; }
 
-    /* PROGRESS */
+    /* ============ PROGRESS ============ */
     .progress {
         background: var(--bg-secondary);
         border-bottom: 1px solid var(--border-light);
         padding: 14px 0;
     }
     .progress-inner {
-        max-width: 680px;
+        max-width: 960px;
         margin: 0 auto;
         padding: 0 20px;
         display: flex;
@@ -121,15 +126,16 @@
         white-space: nowrap;
     }
 
-    /* HERO */
+    /* ============ HERO ============ */
     .page-hero {
         padding: 56px 0 40px;
         border-bottom: 1px solid var(--border-light);
+        background: var(--bg-secondary);
     }
     .hero-eyebrow {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
         text-transform: uppercase;
         color: var(--accent-crimson);
         margin-bottom: 18px;
@@ -137,180 +143,32 @@
     .hero-title {
         font-size: 32px;
         font-weight: 800;
-        line-height: 1.15;
-        letter-spacing: -0.02em;
+        line-height: 1.12;
+        letter-spacing: -0.022em;
         color: var(--text-primary);
-        margin-bottom: 24px;
+        margin-bottom: 22px;
+        max-width: 780px;
     }
     .hero-lede {
         font-size: 18px;
-        line-height: 1.7;
-        color: var(--text-secondary);
-    }
-    .dropcap {
-        float: left;
-        font-size: 68px;
-        font-weight: 800;
-        line-height: 0.9;
-        padding: 6px 10px 0 0;
-        color: var(--accent-charcoal);
-    }
-    @media (min-width: 768px) {
-        .page-hero { padding: 80px 0 56px; }
-        .hero-title { font-size: 44px; }
-        .hero-lede { font-size: 20px; }
-    }
-
-    /* AGENT SECTIONS */
-    .agents-section { padding: 48px 0 24px; }
-
-    .agent {
-        background: white;
-        border: 1px solid var(--border-light);
-        border-radius: 14px;
-        padding: 32px 24px;
-        margin-bottom: 20px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-    .agent.flagship {
-        background: var(--accent-charcoal);
-        color: white;
-        border: none;
-        padding: 40px 28px;
-        box-shadow: 0 8px 24px rgba(26,31,43,0.25);
-    }
-
-    .agent-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        color: var(--accent-crimson);
-        margin-bottom: 14px;
-        text-transform: uppercase;
-    }
-    .agent.flagship .agent-label {
-        color: white;
-        background: var(--accent-crimson);
-        padding: 6px 12px;
-        border-radius: 4px;
-    }
-
-    .agent-title {
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1.2;
-        letter-spacing: -0.01em;
-        color: var(--text-primary);
-        margin-bottom: 20px;
-    }
-    .agent.flagship .agent-title {
-        color: white;
-        font-size: 28px;
-    }
-
-    .agent-oneliner {
-        font-size: 17px;
         line-height: 1.6;
         color: var(--text-secondary);
-        margin-bottom: 28px;
-        padding-bottom: 24px;
-        border-bottom: 1px solid var(--border-light);
+        max-width: 720px;
     }
-    .agent.flagship .agent-oneliner {
-        color: rgba(255,255,255,0.82);
-        font-size: 19px;
-        border-bottom-color: rgba(255,255,255,0.15);
+    @media (min-width: 1024px) {
+        .page-hero { padding: 88px 0 64px; }
+        .hero-title { font-size: 44px; }
+        .hero-lede { font-size: 19px; }
     }
 
-    .agent-section { margin-bottom: 22px; }
-    .agent-section:last-child { margin-bottom: 0; }
-    .agent-section-label {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        margin-bottom: 8px;
-    }
-    .agent.flagship .agent-section-label {
-        color: rgba(255,255,255,0.55);
-    }
-    .agent-section-body {
-        font-size: 16px;
-        line-height: 1.65;
-        color: var(--text-secondary);
-    }
-    .agent.flagship .agent-section-body {
-        color: rgba(255,255,255,0.9);
-    }
-    .agent-section-body p + p { margin-top: 14px; }
-
-    .agent-pitch {
-        background: var(--bg-secondary);
-        border-left: 3px solid var(--accent-crimson);
-        padding: 18px 20px;
-        border-radius: 4px;
-        margin-top: 24px;
-        font-size: 16px;
-        font-weight: 500;
-        font-style: italic;
-        line-height: 1.5;
-        color: var(--text-primary);
-    }
-    .agent.flagship .agent-pitch {
-        background: rgba(185,28,28,0.18);
-        border-left-color: var(--accent-crimson);
-        color: white;
-    }
-
-    .agent-impact {
-        margin-top: 20px;
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-    .impact-chip {
-        background: var(--bg-secondary);
-        padding: 10px 14px;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--text-secondary);
-        border: 1px solid var(--border-light);
-    }
-    .agent.flagship .impact-chip {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(255,255,255,0.2);
-        color: white;
-    }
-    .impact-chip strong {
-        color: var(--text-primary);
-        font-weight: 700;
-    }
-    .agent.flagship .impact-chip strong { color: white; }
-
-    @media (min-width: 768px) {
-        .agent { padding: 40px 36px; }
-        .agent.flagship { padding: 52px 40px; }
-        .agent-title { font-size: 28px; }
-        .agent.flagship .agent-title { font-size: 36px; }
-    }
-
-    /* INLINE TERM */
+    /* ============ INLINE TERM DEFINITION ============ */
     .term {
         font-style: normal;
-        color: inherit;
+        color: var(--accent-charcoal);
         font-weight: 600;
         border-bottom: 1px dotted var(--accent-crimson);
         cursor: help;
         position: relative;
-    }
-    .agent.flagship .term {
-        border-bottom-color: var(--accent-crimson);
     }
     .term:hover .term-def,
     .term:focus-within .term-def {
@@ -327,8 +185,9 @@
         color: white;
         padding: 10px 14px;
         border-radius: 6px;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 400;
+        font-style: normal;
         line-height: 1.5;
         min-width: 240px;
         max-width: 320px;
@@ -336,8 +195,8 @@
         visibility: hidden;
         transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
         z-index: 50;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        letter-spacing: 0;
     }
     .term-def::after {
         content: '';
@@ -348,65 +207,246 @@
         border: 6px solid transparent;
         border-top-color: var(--accent-charcoal);
     }
-
-    /* DIVIDER */
-    .divider {
-        padding: 48px 0 24px;
-        text-align: center;
+    .agent-flagship .term {
+        color: #f1f5f9;
+        border-bottom-color: #fca5a5;
     }
-    .divider-line {
+
+    /* ============ AGENT CARDS ============ */
+    .agents-section { padding: 48px 0 24px; }
+    @media (min-width: 1024px) { .agents-section { padding: 64px 0 32px; } }
+
+    .agent {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 14px;
+        padding: 28px 24px;
+        margin-bottom: 24px;
+        position: relative;
+    }
+    @media (min-width: 1024px) {
+        .agent { padding: 40px 44px; margin-bottom: 32px; }
+    }
+
+    .agent-flagship {
+        background: var(--accent-charcoal);
+        color: white;
+        border-color: var(--accent-charcoal);
+        box-shadow: 0 12px 40px rgba(26,31,43,0.25);
+    }
+    .agent-flagship .agent-title { color: white; }
+    .agent-flagship .agent-pitch { color: rgba(255,255,255,0.9); }
+    .agent-flagship .agent-body { color: rgba(255,255,255,0.82); }
+    .agent-flagship .agent-body strong { color: white; }
+    .agent-flagship .agent-label { color: rgba(255,255,255,0.55); }
+    .agent-flagship .agent-meta-val { color: white; }
+    .agent-flagship .agent-meta { border-top-color: rgba(255,255,255,0.14); }
+    .agent-flagship .trigger-block {
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(255,255,255,0.14);
+        color: #e2e8f0;
+    }
+
+    .agent-header {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 16px;
-        color: var(--text-muted);
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
     }
-    .divider-line::before,
-    .divider-line::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: var(--border-light);
-        max-width: 80px;
-    }
-    .divider-label {
-        font-size: 12px;
+    .agent-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
         font-weight: 600;
+        color: var(--accent-crimson);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        background: rgba(185,28,28,0.1);
+        padding: 5px 12px;
+        border-radius: 4px;
+    }
+    .agent-flagship .agent-num {
+        background: var(--accent-crimson);
+        color: white;
+    }
+    .agent-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
+        color: white;
+        background: var(--accent-crimson);
+        padding: 5px 11px;
+        border-radius: 4px;
     }
 
-    /* CLOSING NOTE */
-    .closing {
-        background: var(--bg-secondary);
-        padding: 56px 0;
-        text-align: center;
-    }
-    .closing-title {
+    .agent-title {
         font-size: 24px;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.018em;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+    }
+    @media (min-width: 1024px) {
+        .agent-title { font-size: 30px; }
+    }
+
+    .agent-pitch {
+        font-size: 17px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        font-style: italic;
+    }
+    @media (min-width: 1024px) { .agent-pitch { font-size: 18px; } }
+
+    .agent-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    @media (min-width: 1024px) {
+        .agent-grid {
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+    }
+
+    .agent-body {
+        font-size: 16px;
+        line-height: 1.7;
+        color: var(--text-secondary);
+    }
+    .agent-body p + p { margin-top: 14px; }
+    .agent-body strong { color: var(--text-primary); font-weight: 700; }
+
+    /* Trigger block */
+    .trigger-block {
+        background: #0f1218;
+        border: 1px solid #1e2433;
+        border-radius: 10px;
+        padding: 18px 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12.5px;
+        line-height: 1.8;
+        color: #cbd5e1;
+        margin-bottom: 22px;
+        overflow-x: auto;
+    }
+    @media (min-width: 1024px) { .trigger-block { font-size: 13.5px; } }
+    .trig-label {
+        display: block;
+        font-size: 9px;
         font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 10px;
+    }
+    .trig-line { display: block; }
+    .trig-key { color: #f87171; font-weight: 600; }
+    .trig-val { color: #f1f5f9; }
+    .trig-comment { color: #64748b; }
+
+    .agent-meta {
+        border-top: 1px solid var(--border-light);
+        padding-top: 18px;
+        margin-top: 6px;
+    }
+    .agent-meta-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 8px 0;
+        font-size: 13px;
+    }
+    .agent-label {
+        color: var(--text-muted);
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        font-size: 10.5px;
+        flex-shrink: 0;
+    }
+    .agent-meta-val {
+        color: var(--text-primary);
+        font-weight: 600;
+        text-align: right;
+        max-width: 64%;
+        font-size: 13px;
+    }
+
+    /* Flagship ribbon */
+    .flagship-ribbon {
+        position: absolute;
+        top: -12px;
+        left: 20px;
+        background: var(--accent-crimson);
+        color: white;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(185,28,28,0.4);
+    }
+    @media (min-width: 1024px) {
+        .flagship-ribbon { top: -14px; left: 44px; padding: 7px 16px; font-size: 11px; }
+    }
+
+    /* ============ BRIDGE ============ */
+    .bridge {
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border-light);
+        border-bottom: 1px solid var(--border-light);
+        padding: 48px 0;
+    }
+    .bridge-eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--accent-crimson);
+        margin-bottom: 14px;
+    }
+    .bridge-title {
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.018em;
         color: var(--text-primary);
         margin-bottom: 16px;
-        line-height: 1.3;
+        max-width: 700px;
     }
-    .closing-body {
+    .bridge-body {
         font-size: 17px;
+        line-height: 1.7;
         color: var(--text-secondary);
-        line-height: 1.6;
-        max-width: 540px;
-        margin: 0 auto;
+        max-width: 680px;
+    }
+    .bridge-body p + p { margin-top: 14px; }
+    @media (min-width: 1024px) {
+        .bridge { padding: 72px 0; }
+        .bridge-title { font-size: 30px; }
     }
 
-    /* PAGE NAV */
+    /* ============ PAGE NAV ============ */
     .page-nav {
-        padding: 40px 0 56px;
+        padding: 40px 0 64px;
         display: flex;
         gap: 12px;
     }
     .page-nav-link {
         flex: 1;
         min-height: 64px;
-        padding: 18px 20px;
+        padding: 16px 20px;
         border-radius: 10px;
         text-decoration: none;
         display: flex;
@@ -426,58 +466,36 @@
     }
     .page-nav-next:hover { background: #0f1218; }
     .page-nav-label {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
         text-transform: uppercase;
         opacity: 0.6;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
     }
     .page-nav-title {
         font-size: 15px;
         font-weight: 700;
-        line-height: 1.3;
-    }
-    @media (min-width: 640px) {
-        .page-nav-title { font-size: 16px; }
+        letter-spacing: -0.01em;
     }
 
-    /* FOOTER */
+    /* ============ FOOTER ============ */
     .footer {
-        background: var(--accent-charcoal);
-        color: var(--text-inverse);
-        padding: 40px 0;
+        background: var(--bg-secondary);
+        padding: 32px 0;
+        border-top: 1px solid var(--border-light);
+        text-align: center;
     }
-    .footer-brand {
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 1.8px;
-        margin-bottom: 10px;
+    .footer-text {
+        font-size: 12px;
+        color: var(--text-muted);
+        letter-spacing: 0.3px;
     }
-    .footer-sub {
-        font-size: 13px;
-        color: rgba(255,255,255,0.5);
-        margin-bottom: 20px;
-    }
-    .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    .footer-links a {
-        color: rgba(255,255,255,0.75);
-        text-decoration: none;
-        font-size: 14px;
-        padding: 8px 0;
-        min-height: 40px;
-        display: inline-flex;
-        align-items: center;
-    }
-    .footer-links a:hover { color: white; }
 </style>
 </head>
 <body>
 
+<!-- ============ NAV ============ -->
 <nav class="nav">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">COLLISION INTELLIGENCE</a>
@@ -485,189 +503,269 @@
     </div>
 </nav>
 
+<!-- ============ PROGRESS ============ -->
 <div class="progress">
     <div class="progress-inner">
-        <div class="progress-track"><div class="progress-fill" style="width: 40%"></div></div>
-        <div class="progress-label">Page 2 of 5</div>
+        <div class="progress-track"><div class="progress-fill" style="width: 40%;"></div></div>
+        <div class="progress-label">Page 2 of 5 · The Agents</div>
     </div>
 </div>
 
-<!-- HERO -->
-<header class="page-hero">
+<!-- ============ HERO ============ -->
+<section class="page-hero">
     <div class="container">
         <div class="hero-eyebrow">The Agents</div>
-        <h1 class="hero-title">Five agents. One system. Each replaces a specific recurring task.</h1>
+        <h1 class="hero-title">Five Agents. One Fleet. The Trigger Is the Product.</h1>
         <p class="hero-lede">
-            <span class="dropcap">E</span>ach agent listens for one specific event in your shop — a new assignment, a sublet invoice, a schedule slip — and then does the work that would normally take a human fifteen minutes. The flagship agent, the one most shops start with, is first.
+            Every agent below is the same shape: a real shop
+            <span class="term">event<span class="term-def">A specific, observable change in a system of record — an assignment landing, an email arriving, a VIN decoding — that a routine can listen for and act on.</span></span>
+            fires, a routine runs, an output lands where someone can actually use it. Agent 04 leads because it defends the single biggest pool of wasted shop time. The other four cover the edges where margin leaks the fastest.
         </p>
     </div>
-</header>
+</section>
 
-<!-- AGENTS -->
+<!-- ============ AGENTS ============ -->
 <section class="agents-section">
     <div class="container">
 
-        <!-- AGENT 4 FLAGSHIP -->
-        <div class="agent flagship">
-            <div class="agent-label">★ Start Here · Flagship Agent</div>
-            <h2 class="agent-title">It tells you which cars are going to total — before you tear them down.</h2>
-            <p class="agent-oneliner">When a new assignment lands in your queue, the agent looks at the vehicle, the damage photos, the car's value, and your state's total-loss rules — and tells you whether teardown is worth it. If it's borderline, it pre-writes the teardown labor lines so you get paid even when the car totals.</p>
+        <!-- ============ AGENT 04 — FLAGSHIP ============ -->
+        <article class="agent agent-flagship">
+            <div class="flagship-ribbon">Flagship · Lead With This</div>
+            <div class="agent-header">
+                <div class="agent-num">Agent 04</div>
+                <div class="agent-badge">★ Highest ROI</div>
+            </div>
+            <h2 class="agent-title">E01 Pre-Cognition &amp; Teardown Defender</h2>
+            <p class="agent-pitch">"I'll stop you from wasting six hours on a car that's going to total anyway — and make sure the carrier pays for the minutes you did spend."</p>
 
-            <div class="agent-section">
-                <div class="agent-section-label">What triggers it</div>
-                <div class="agent-section-body"><p>A new repair assignment drops in your estimating software. Or a customer uploads <span class="term">first-notice-of-loss photos<span class="term-def">FNOL — the initial photos the customer or insurer submits when a claim is opened, before the car even arrives at your shop.</span></span> through the carrier's app. The agent wakes up automatically.</p></div>
+            <div class="trigger-block">
+                <span class="trig-label">Trigger</span>
+                <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">assignment.received</span> <span class="trig-comment">// CCC Secure Share webhook</span></span>
+                <span class="trig-line"><span class="trig-key">or</span> <span class="trig-val">fnol.photos.uploaded</span> <span class="trig-comment">// Mitchell Intelligent Open Shop</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">predict_severity → flag_E01 → prefill_teardown_ops</span></span>
             </div>
 
-            <div class="agent-section">
-                <div class="agent-section-label">What it actually does</div>
-                <div class="agent-section-body">
-                    <p>It pulls the car's actual cash value in real-time from market data. It estimates the repair cost from the assignment photos. It checks your state's total-loss threshold. It does the math: <em>is this car going to get written off?</em></p>
-                    <p>If the answer is "probably yes," it drops a Slack message into your estimator's channel: <em>"Hold on this BMW X5 — likely total loss. I've pre-staged teardown lines in case you proceed."</em> If they proceed anyway, the teardown compensation is already in the estimate — not a fight later.</p>
+            <div class="agent-grid">
+                <div class="agent-body">
+                    <p>
+                        The moment an assignment lands — or FNOL photos arrive with it — the agent pulls
+                        <span class="term">ACV<span class="term-def">Actual Cash Value — the carrier's pre-loss valuation of the vehicle. Combined with the repair estimate, it determines whether the job is repaired or declared a total loss.</span></span>,
+                        runs a severity prediction against the damage pattern, and compares projected repair cost to the state's
+                        <span class="term">E01<span class="term-def">The dollar threshold at which a vehicle is declared a total loss. Varies by state (typically 70–80% of ACV). Crossing it ends the repair and starts the settlement.</span></span>
+                        threshold. If the answer is "this one totals," it says so in writing — before anyone touches a bolt.
+                    </p>
+                    <p>
+                        Second job: if teardown does proceed, the agent pre-populates the teardown labor lines with full procedural citations, so the carrier cannot argue the hours away when the car goes total three days later. The
+                        <span class="term">CRIB 188<span class="term-def">CCC's Collision Repair Industry Bulletin #188 — the industry-recognized reference defining teardown as a billable diagnostic operation separate from repair labor.</span></span>
+                        citation gets attached automatically.
+                    </p>
+                    <p>
+                        <strong>What this means on your floor:</strong> every overnight tow-in has a read on its fate before estimator coffee. No more Thursday-afternoon discoveries. No more fights over teardown hours on a unit you already know is gone.
+                    </p>
+                </div>
+                <div>
+                    <div class="agent-meta">
+                        <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">Assignment drop or FNOL upload</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">CCC Secure Share · Mitchell API</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Estimate · Slack · ops report</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$28,050 / avg shop</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Why it leads</span><span class="agent-meta-val">Largest recoverable pool</span></div>
+                    </div>
                 </div>
             </div>
+        </article>
 
-            <div class="agent-section">
-                <div class="agent-section-label">Why this one first</div>
-                <div class="agent-section-body"><p>Because it's the single most visceral pain in the business. Every shop owner has a story about four hours of teardown they never got paid for. This agent ends that story.</p></div>
+        <!-- ============ AGENT 03 ============ -->
+        <article class="agent">
+            <div class="agent-header">
+                <div class="agent-num">Agent 03</div>
+            </div>
+            <h2 class="agent-title">Ecosystem Status Synchronizer</h2>
+            <p class="agent-pitch">"Every time a job slips, I handle the rental extension, the carrier note, and the customer text — in that order, automatically."</p>
+
+            <div class="trigger-block">
+                <span class="trig-label">Trigger</span>
+                <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">ECD.updated</span> <span class="trig-comment">// workfile delivery-date change</span></span>
+                <span class="trig-line"><span class="trig-key">if</span> <span class="trig-val">new_ECD &gt; rental_auth_end</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">ARMS.extend → HIRS.extend → portal.note → sms.customer</span></span>
             </div>
 
-            <div class="agent-pitch">"I'll stop you from wasting six hours on a car that's going to be totaled anyway."</div>
-
-            <div class="agent-impact">
-                <div class="impact-chip"><strong>Time saved:</strong> 3–6 hrs per flagged vehicle</div>
-                <div class="impact-chip"><strong>Recovered:</strong> $7,480/mo average</div>
-                <div class="impact-chip"><strong>Setup:</strong> 1 week</div>
-            </div>
-        </div>
-
-        <div class="divider">
-            <div class="divider-line"><span class="divider-label">The Other Four</span></div>
-        </div>
-
-        <!-- AGENT 1 -->
-        <div class="agent">
-            <div class="agent-label">Agent · Estimate Scrubber</div>
-            <h2 class="agent-title">It finds the money your estimator left on the estimate.</h2>
-            <p class="agent-oneliner">Every time your estimator saves a draft estimate, the agent cross-references it against the official labor-time rules and independent industry rulings — and adds the lines that should be there, with citations the adjuster can't reject.</p>
-
-            <div class="agent-section">
-                <div class="agent-section-label">What triggers it</div>
-                <div class="agent-section-body"><p>Your estimator hits "save" on a draft estimate or supplement in your estimating software. That's it.</p></div>
-            </div>
-
-            <div class="agent-section">
-                <div class="agent-section-label">What it actually does</div>
-                <div class="agent-section-body">
-                    <p>It reads the estimate. It decodes the VIN. It pulls the list of operations the estimator wrote. It compares them against the official <span class="term">P-Pages<span class="term-def">Procedure Pages — the official rule documents from CCC, Mitchell, and Audatex. They specify exactly which operations are and aren't included in standard labor times.</span></span> and the <span class="term">DEG database<span class="term-def">Database of Estimator's Guide — independent industry rulings on which operations require manual line entry.</span></span>. It identifies the missing lines — masking, feather-prime-block, seat-belt inspection, hazardous material, whatever applies.</p>
-                    <p>It pushes those lines back into the estimate with a one-line justification citing the rule. The adjuster sees: "Feather-prime-block: DEG Ruling 2023-014, required for color match on this substrate." Not "please approve."</p>
+            <div class="agent-grid">
+                <div class="agent-body">
+                    <p>
+                        When a repair slides, three clocks start ticking. The rental authorization has to be extended through
+                        <span class="term">Enterprise ARMS<span class="term-def">Automated Rental Management System — Enterprise's portal for shops and carriers to manage loaner authorizations. Extensions require manual entry of delay codes and new return dates.</span></span>
+                        or
+                        <span class="term">Hertz HIRS<span class="term-def">Hertz Integrated Rental System — Hertz's equivalent portal. Most DRP shops juggle both depending on which carrier sent the customer.</span></span>.
+                        The carrier wants a delay note posted in their portal with the right reason code. And the customer — watching a pickup date move on them — wants a human-sounding text before they hear it from anyone else.
+                    </p>
+                    <p>
+                        The agent fires the instant the
+                        <span class="term">ECD<span class="term-def">Estimated Completion Date — the live delivery promise inside the shop management system. When it slips, every downstream notification obligation slips with it.</span></span>
+                        in the workfile changes. It extends the rental, posts the portal note with the delay code, and sends a customer-facing SMS that reads like your front-office manager wrote it. One event, four updates, zero staff minutes.
+                    </p>
+                    <p>
+                        <strong>Why shops care:</strong> the portal tax is real. The average 12-bay shop loses 40+ hours a month to status-sync busywork. This agent zeros it.
+                    </p>
+                </div>
+                <div>
+                    <div class="agent-meta">
+                        <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">ECD change in SMS</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">ARMS · HIRS · carrier portal · SMS</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Rental auth · portal note · customer text</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$883 / avg shop (labor recapture)</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Secondary</span><span class="agent-meta-val">CSI lift · rental-day credibility</span></div>
+                    </div>
                 </div>
             </div>
+        </article>
 
-            <div class="agent-pitch">"I'll find the money you're leaving on every estimate — before you submit it."</div>
-
-            <div class="agent-impact">
-                <div class="impact-chip"><strong>Recovered:</strong> $300–$800 per estimate</div>
-                <div class="impact-chip"><strong>Monthly:</strong> $28,050 average shop</div>
-                <div class="impact-chip"><strong>Setup:</strong> 2 weeks</div>
+        <!-- ============ AGENT 01 ============ -->
+        <article class="agent">
+            <div class="agent-header">
+                <div class="agent-num">Agent 01</div>
             </div>
-        </div>
+            <h2 class="agent-title">P-Page &amp; OEM Not-Included Scrubber</h2>
+            <p class="agent-pitch">"I'll find the money you're leaving on every estimate before you submit it."</p>
 
-        <!-- AGENT 3 -->
-        <div class="agent">
-            <div class="agent-label">Agent · Status Sync</div>
-            <h2 class="agent-title">When a job slips, it handles the rental, the insurer, and the customer.</h2>
-            <p class="agent-oneliner">Every time a completion date changes on a job in your shop, the agent fans out the update — extending the rental, posting a delay note to the insurer, and texting the customer — automatically, simultaneously, without anyone logging into a portal.</p>
-
-            <div class="agent-section">
-                <div class="agent-section-label">What triggers it</div>
-                <div class="agent-section-body"><p>Your estimator changes the completion date on a job. Parts delay, calibration reschedule, supplement approval lag — whatever the reason.</p></div>
+            <div class="trigger-block">
+                <span class="trig-label">Trigger</span>
+                <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">estimate.saved</span> <span class="trig-comment">// draft or supplement</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">parse_ops → cross_ref(PPages, DEG, OEM) → push_missing_lines</span></span>
             </div>
 
-            <div class="agent-section">
-                <div class="agent-section-label">What it actually does</div>
-                <div class="agent-section-body">
-                    <p>It authenticates into <span class="term">Enterprise ARMS<span class="term-def">ARMS — the rental company Enterprise's portal for collision shops. Where shops update rental authorizations for customers driving loaners during repair.</span></span> and Hertz's portal. Extends the rental end date. Inputs the delay reason code. Posts a note in the insurer's portal. Sends the customer an SMS: "Hey, John — your Toyota's going to be a few days late. New pickup: Tuesday the 24th. Your rental's extended, no action needed."</p>
-                    <p>Total human time: zero. Total elapsed time: forty seconds.</p>
+            <div class="agent-grid">
+                <div class="agent-body">
+                    <p>
+                        Every estimate in
+                        <span class="term">CCC ONE<span class="term-def">CCC Intelligent Solutions — the dominant estimating platform used by roughly 28,000 North American collision shops.</span></span>,
+                        Mitchell, or Audatex carries an invisible checklist — the
+                        <span class="term">P-Pages<span class="term-def">Procedure Pages — the rules in every estimating system that dictate which operations are included in a labor time and which must be written as separate line items.</span></span>
+                        — defining which operations are built into a labor time and which must be written manually. Masking. Weld-through primer. Ceramic coating removal. OEM rivets. Final test drive. Feather-prime-block on adjacent panels.
+                    </p>
+                    <p>
+                        The agent fires when an estimator saves a draft. It parses every op, cross-references the live P-Page rules plus
+                        <span class="term">DEG<span class="term-def">Database of Expert Justification — the industry clearinghouse for inquiries and rulings on what the estimating systems do and don't include by default.</span></span>
+                        rulings plus OEM position statements, and pushes the missing manual lines back into the workfile with citations already attached. The estimator opens their own draft and sees the gaps filled.
+                    </p>
+                    <p>
+                        <strong>Why it works:</strong> this is not a knowledge problem. It's an attention problem. The agent has infinite attention on every file. Your estimator gets to keep thinking about the repair.
+                    </p>
+                </div>
+                <div>
+                    <div class="agent-meta">
+                        <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">Estimate or supplement save</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">CCC Secure Share · Mitchell API</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Workfile lines + justification notes</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$7,480 / avg shop</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Kills</span><span class="agent-meta-val">Missed not-included operations</span></div>
+                    </div>
                 </div>
             </div>
+        </article>
 
-            <div class="agent-pitch">"Every time a job slips, I handle the rental extension, the insurance note, and the customer text. Automatically."</div>
-
-            <div class="agent-impact">
-                <div class="impact-chip"><strong>Time saved:</strong> 25 min per slip</div>
-                <div class="impact-chip"><strong>Monthly value:</strong> $883</div>
-                <div class="impact-chip"><strong>Setup:</strong> 2 weeks</div>
+        <!-- ============ AGENT 02 ============ -->
+        <article class="agent">
+            <div class="agent-header">
+                <div class="agent-num">Agent 02</div>
             </div>
-        </div>
+            <h2 class="agent-title">Sublet Invoice &amp; Markup Reconciler</h2>
+            <p class="agent-pitch">"Every sublet PDF that hits the inbox — I read it, apply your DRP markup, post the line items, and attach the invoice to the workfile."</p>
 
-        <!-- AGENT 2 -->
-        <div class="agent">
-            <div class="agent-label">Agent · Sublet Reconciler</div>
-            <h2 class="agent-title">It turns calibration PDFs into line items automatically.</h2>
-            <p class="agent-oneliner">When a sublet vendor emails you an invoice, the agent reads the PDF, calculates your allowed markup under the insurance carrier's DRP agreement, and posts the line items into your estimate with the PDF attached — before your estimator even opens the email.</p>
-
-            <div class="agent-section">
-                <div class="agent-section-label">What triggers it</div>
-                <div class="agent-section-body"><p>A PDF invoice arrives in your shop's email from Precision Diagnostics, Elitek, AirPro, or any other sublet vendor on a known list.</p></div>
+            <div class="trigger-block">
+                <span class="trig-label">Trigger</span>
+                <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">email.received</span> <span class="trig-comment">// from Elitek, AirPro, Precision, etc.</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">ocr_invoice → match_VIN → apply_DRP_markup → post_lines → attach_PDF</span></span>
             </div>
 
-            <div class="agent-section">
-                <div class="agent-section-label">What it actually does</div>
-                <div class="agent-section-body">
-                    <p>It OCRs the PDF. Extracts the VIN, the operations performed, the cost. Matches it to the open repair order. Queries your <span class="term">DRP contract<span class="term-def">Direct Repair Program contract — the agreement between your shop and an insurance carrier that specifies allowed markups, pricing caps, and procedural rules.</span></span> for the allowed markup percentage. Creates the line items in your estimating software. Attaches the original PDF as documentation.</p>
-                    <p>Your estimator's first awareness of the invoice is a notification that says: "Precision Diagnostics invoice processed, $340 added to RO-4827, PDF attached." They glance. They approve. Done.</p>
+            <div class="agent-grid">
+                <div class="agent-body">
+                    <p>
+                        <span class="term">Sublet<span class="term-def">Work performed off-site by a specialist vendor — scans, calibrations, ADAS work, paintless dent repair — that the shop invoices through the primary repair order.</span></span>
+                        invoices hit the inbox as PDFs. An estimator opens it, matches the VIN, types the operations into the estimate, calculates the
+                        <span class="term">DRP<span class="term-def">Direct Repair Program — contractual arrangement between a carrier and a shop. Each DRP specifies the maximum sublet markup the shop can invoice.</span></span>-contracted
+                        markup, posts the line items, and uploads the PDF to the portal. Every job. Twice a day on a busy shop.
+                    </p>
+                    <p>
+                        The agent does all of it on email arrival. OCR reads the invoice, VIN matches it to the workfile, the DRP profile determines the allowed markup, the line items post, and the PDF attaches via the platform's ImageAttachment API. The first time the estimator sees the invoice, the work is already done.
+                    </p>
+                    <p>
+                        <strong>Edge win:</strong> the markup math is never wrong and never forgotten. Every dollar of allowable margin gets captured.
+                    </p>
+                </div>
+                <div>
+                    <div class="agent-meta">
+                        <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">Email with invoice PDF</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">Mail webhook · OCR · ImageAttachment API</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Workfile lines · PDF attachment</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$430 / avg shop</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Hidden upside</span><span class="agent-meta-val">Zero markup-math errors</span></div>
+                    </div>
                 </div>
             </div>
+        </article>
 
-            <div class="agent-pitch">"I'll take every calibration PDF that hits your inbox and turn it into a line item before you see it."</div>
-
-            <div class="agent-impact">
-                <div class="impact-chip"><strong>Time saved:</strong> 15 min per invoice</div>
-                <div class="impact-chip"><strong>Monthly value:</strong> $430</div>
-                <div class="impact-chip"><strong>Setup:</strong> 1 week</div>
+        <!-- ============ AGENT 05 ============ -->
+        <article class="agent">
+            <div class="agent-header">
+                <div class="agent-num">Agent 05</div>
             </div>
-        </div>
+            <h2 class="agent-title">High-Voltage EV Compliance Documenter</h2>
+            <p class="agent-pitch">"Any PHEV or BEV that crosses your intake gets a complete HV safety paper trail before it hits the bay — and the billable compliance lines attached."</p>
 
-        <!-- AGENT 5 -->
-        <div class="agent">
-            <div class="agent-label">Agent · EV Compliance Documenter</div>
-            <h2 class="agent-title">It generates the EV safety paperwork your tech would otherwise skip.</h2>
-            <p class="agent-oneliner">When an electric or hybrid vehicle checks in, the agent generates a VIN-specific high-voltage safety checklist, sends it to the tech's tablet, and auto-adds the required safety labor lines to the estimate — so the compliance paperwork actually happens.</p>
-
-            <div class="agent-section">
-                <div class="agent-section-label">What triggers it</div>
-                <div class="agent-section-body"><p>A vehicle is checked in at intake and the VIN decodes to a hybrid, plug-in hybrid, or battery-electric vehicle.</p></div>
+            <div class="trigger-block">
+                <span class="trig-label">Trigger</span>
+                <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">vin.decoded</span> <span class="trig-comment">// intake check-in</span></span>
+                <span class="trig-line"><span class="trig-key">if</span> <span class="trig-val">drivetrain in [PHEV, BEV, HEV]</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">dispatch_checklist → prefill_HV_ops → log_quarantine</span></span>
             </div>
 
-            <div class="agent-section">
-                <div class="agent-section-label">What it actually does</div>
-                <div class="agent-section-body">
-                    <p>It decodes the VIN to identify the exact make, model, and high-voltage system. It pulls the OEM's published safety procedures — high-voltage isolation, lock-out/tag-out, thermal event response, quarantine distance. It generates a digital checklist customized to that vehicle and sends it to the assigned tech's mobile device.</p>
-                    <p>It also adds the corresponding safety labor lines to the estimate automatically — HV inspection, isolation procedure, quarantine documentation if applicable — so you actually get paid for the safety steps the OEM requires you to perform.</p>
+            <div class="agent-grid">
+                <div class="agent-body">
+                    <p>
+                        When
+                        <span class="term">VIN<span class="term-def">Vehicle Identification Number — the unique 17-character code on every vehicle. Decoding it at intake reveals make, model, year, drivetrain, and build options.</span></span>
+                        decode flags an EV, a cascade of documentation requirements wakes up: HV isolation procedure, lock-out/tag-out record, 50-foot thermal quarantine log, OEM-specific battery-state attestation, PPE sign-offs. The regulatory and liability stakes are real — and carriers are increasingly disputing EV jobs that don't have clean compliance trails.
+                    </p>
+                    <p>
+                        The agent fires on VIN decode at intake. It pushes the complete compliance checklist to the tech's mobile device with OEM-specific steps, adds the HV safety labor lines to the estimate with full citation, and logs the quarantine placement timestamp. The tech taps through steps; the estimate accrues the billable compliance operations automatically.
+                    </p>
+                    <p>
+                        <strong>Why it matters now:</strong> 61 documented EV compliance lawsuits against shops through Q4 2025. Every BEV/PHEV that enters without a paper trail is a liability event waiting to close.
+                    </p>
+                </div>
+                <div>
+                    <div class="agent-meta">
+                        <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">VIN decode identifies HV vehicle</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">CCC ONE mobile · VIN decode</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Tech device · estimate · compliance log</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$280 per EV processed</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Real upside</span><span class="agent-meta-val">Liability insulation</span></div>
+                    </div>
                 </div>
             </div>
-
-            <div class="agent-pitch">"Every EV that rolls in gets a proper safety workflow — not a guess. And you bill for every step."</div>
-
-            <div class="agent-impact">
-                <div class="impact-chip"><strong>Added to estimate:</strong> $280 per EV</div>
-                <div class="impact-chip"><strong>Liability:</strong> documented</div>
-                <div class="impact-chip"><strong>Setup:</strong> 3 weeks</div>
-            </div>
-        </div>
+        </article>
 
     </div>
 </section>
 
-<!-- CLOSING -->
-<section class="closing">
+<!-- ============ BRIDGE ============ -->
+<section class="bridge">
     <div class="container">
-        <h2 class="closing-title">Five agents. Managed for you.</h2>
-        <p class="closing-body">You don't install anything. You don't learn anything. Your staff keeps using the software they already use. The agents work in the background — they send messages, they pre-write lines, they file paperwork. Everything is visible. Nothing requires approval you can't review. Next: what it's worth.</p>
+        <div class="bridge-eyebrow">Where This Goes</div>
+        <h2 class="bridge-title">Five agents. Same managed-service wrapper. Pricing on the next page.</h2>
+        <div class="bridge-body">
+            <p>
+                You don't buy a model. You don't buy an API. You don't learn a tool. You hire one agent, three agents, or the full fleet — and the outputs land where you already work: inside the workfile, inside the carrier portal, inside your shop's Slack or email.
+            </p>
+            <p>
+                The next page does the math. One shop. One month. How the dollars add up against each tier.
+            </p>
+        </div>
     </div>
 </section>
 
-<!-- PAGE NAV -->
+<!-- ============ PAGE NAV ============ -->
 <div class="container">
     <div class="page-nav">
         <a href="the-problem.html" class="page-nav-link page-nav-prev">
@@ -675,26 +773,16 @@
             <div class="page-nav-title">The Problem</div>
         </a>
         <a href="the-math.html" class="page-nav-link page-nav-next">
-            <div class="page-nav-label">Page 3 of 5 →</div>
+            <div class="page-nav-label">Next →</div>
             <div class="page-nav-title">The Math</div>
         </a>
     </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ============ FOOTER ============ -->
 <footer class="footer">
     <div class="container">
-        <div class="footer-brand">COLLISION INTELLIGENCE</div>
-        <div class="footer-sub">Intersection Strategies LLC · Version 2.0 — April 2026 · Field Edition</div>
-        <div class="footer-links">
-            <a href="index.html">Start Over</a>
-            <a href="the-problem.html">The Problem</a>
-            <a href="the-agents.html">The Agents</a>
-            <a href="the-math.html">The Math</a>
-            <a href="how-it-works.html">How It Works</a>
-            <a href="glossary.html">Glossary</a>
-            <a href="mailto:james@intersection-strategies.com">Contact</a>
-        </div>
+        <div class="footer-text">Intersection Strategies LLC · Collision Intelligence · Version 2.1 — April 2026 · Field Edition</div>
     </div>
 </footer>
 

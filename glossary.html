@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glossary — Collision Intelligence</title>
-<meta name="description" content="Plain-English definitions for every industry term used in this briefing.">
+<meta name="description" content="Plain-English dictionary of the collision and agent terms used across Collision Intelligence: E01, P-Page, DEG, DRP, ECD, ARMS, HIRS, FNOL, ADAS, MCP, Claude Code Routines, sublet, teardown, and more.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -15,227 +15,148 @@
         --bg-primary: #ffffff;
         --bg-secondary: #f6f7f9;
         --bg-tertiary: #eceef2;
-        --bg-dark: #1a1f2b;
         --accent-charcoal: #1a1f2b;
         --accent-steel: #334155;
         --accent-crimson: #b91c1c;
-        --accent-amber: #d97706;
-        --accent-emerald: #047857;
-        --accent-blue: #1e40af;
         --text-primary: #0f172a;
         --text-secondary: #334155;
         --text-muted: #64748b;
-        --text-inverse: #f8fafc;
         --border-light: #e2e8f0;
         --border-medium: #cbd5e1;
-        --border-strong: #94a3b8;
     }
 
     html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
     body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 18px;
-        line-height: 1.7;
+        font-size: 17px;
+        line-height: 1.65;
         color: var(--text-primary);
         background: var(--bg-primary);
         -webkit-font-smoothing: antialiased;
     }
+    @media (min-width: 1024px) { body { font-size: 16px; } }
 
-    .container {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    @media (min-width: 1024px) { .container { padding: 0 32px; } }
 
-    /* NAV */
+    /* NAV / PROGRESS */
     .nav { background: var(--accent-charcoal); padding: 14px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-    .nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     .nav-brand { font-size: 12px; font-weight: 800; letter-spacing: 1.8px; color: white; text-decoration: none; }
-    .nav-glossary { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; min-height: 40px; display: inline-flex; align-items: center; }
-    .nav-glossary:hover { color: white; border-color: white; }
+    .nav-glossary { font-size: 13px; font-weight: 500; color: white; text-decoration: none; padding: 8px 14px; border: 1px solid white; border-radius: 6px; min-height: 40px; display: inline-flex; align-items: center; }
 
-    /* PROGRESS */
     .progress { background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); padding: 14px 0; }
-    .progress-inner { max-width: 680px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
+    .progress-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
     .progress-track { flex: 1; height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--accent-emerald); border-radius: 2px; }
+    .progress-fill { height: 100%; background: var(--accent-crimson); border-radius: 2px; }
     .progress-label { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
 
     /* HERO */
-    .page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border-light); }
-    .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 18px; }
-    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 24px; }
-    .hero-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); }
-    .dropcap { float: left; font-size: 68px; font-weight: 800; line-height: 0.9; padding: 6px 10px 0 0; color: var(--accent-charcoal); }
-    @media (min-width: 768px) {
-        .page-hero { padding: 80px 0 56px; }
-        .hero-title { font-size: 44px; }
-        .hero-lede { font-size: 20px; }
+    .page-hero { padding: 48px 0 32px; border-bottom: 1px solid var(--border-light); background: var(--bg-secondary); }
+    .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 16px; }
+    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 18px; max-width: 780px; }
+    .hero-lede { font-size: 17px; line-height: 1.6; color: var(--text-secondary); max-width: 700px; }
+    @media (min-width: 1024px) {
+        .page-hero { padding: 72px 0 48px; }
+        .hero-title { font-size: 40px; }
+        .hero-lede { font-size: 18px; }
     }
 
-    /* INDEX JUMP */
-    .alpha-index {
-        padding: 24px 0;
-        background: var(--bg-secondary);
+    /* JUMP NAV */
+    .jumpnav {
+        background: white;
         border-bottom: 1px solid var(--border-light);
+        padding: 16px 0;
         position: sticky;
-        top: 58px;
+        top: 68px;
         z-index: 90;
     }
-    .alpha-list {
+    .jumpnav-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 20px;
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
         justify-content: center;
     }
-    .alpha-letter {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 36px;
-        height: 36px;
-        border-radius: 6px;
-        background: white;
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 600;
-        border: 1px solid var(--border-light);
-    }
-    .alpha-letter:hover {
-        background: var(--accent-charcoal);
-        color: white;
-        border-color: var(--accent-charcoal);
-    }
-    .alpha-letter.disabled {
-        opacity: 0.3;
-        pointer-events: none;
-    }
-
-    /* GLOSSARY ENTRIES */
-    .glossary-section {
-        padding: 48px 0;
-    }
-    .letter-group {
-        margin-bottom: 40px;
-        scroll-margin-top: 120px;
-    }
-    .letter-header {
-        font-size: 48px;
-        font-weight: 800;
-        color: var(--accent-crimson);
-        margin-bottom: 8px;
-        letter-spacing: -0.02em;
-        line-height: 1;
-        padding-top: 20px;
-        border-top: 2px solid var(--border-light);
-    }
-    .letter-label {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        margin-bottom: 24px;
-    }
-
-    .term-entry {
-        margin-bottom: 28px;
-        scroll-margin-top: 140px;
-    }
-    .term-name {
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--text-primary);
-        margin-bottom: 4px;
-        letter-spacing: -0.01em;
-    }
-    .term-alias {
+    .jumpnav a {
         font-family: 'JetBrains Mono', monospace;
         font-size: 12px;
-        color: var(--accent-crimson);
-        font-weight: 600;
-        margin-bottom: 10px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 5px;
+        min-width: 32px;
+        text-align: center;
+        letter-spacing: 0.5px;
     }
-    .term-def-text {
-        font-size: 16px;
+    .jumpnav a:hover { background: var(--accent-charcoal); color: white; }
+    .jumpnav a.disabled { opacity: 0.3; pointer-events: none; }
+    @media (min-width: 1024px) {
+        .jumpnav-inner { padding: 0 32px; gap: 4px; }
+        .jumpnav a { padding: 6px 12px; }
+    }
+
+    /* GLOSSARY */
+    .glossary-section { padding: 48px 0; }
+    @media (min-width: 1024px) { .glossary-section { padding: 64px 0; } }
+
+    .letter-block { margin-bottom: 48px; scroll-margin-top: 140px; }
+    .letter-heading {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 44px;
+        font-weight: 700;
+        color: var(--accent-crimson);
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 2px solid var(--border-light);
+    }
+    @media (min-width: 1024px) { .letter-heading { font-size: 56px; } }
+
+    .entry { margin-bottom: 22px; }
+    .entry-term {
+        font-size: 17px;
+        font-weight: 800;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+        margin-bottom: 4px;
+    }
+    .entry-expand {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--accent-crimson);
+        margin-bottom: 8px;
+        letter-spacing: 0.2px;
+    }
+    .entry-def {
+        font-size: 15px;
         line-height: 1.65;
         color: var(--text-secondary);
     }
-    .term-def-text strong {
-        color: var(--text-primary);
-    }
-    .term-def-text em {
-        color: var(--text-muted);
-        font-style: normal;
-        display: block;
-        margin-top: 8px;
-        font-size: 14px;
-    }
+    @media (min-width: 1024px) { .entry-def { font-size: 15.5px; } }
 
-    /* CTA BLOCK */
-    .cta-final {
-        background: var(--accent-charcoal);
-        color: white;
-        padding: 56px 0;
-        text-align: center;
-    }
-    .cta-title {
-        font-size: 26px;
-        font-weight: 800;
-        line-height: 1.2;
-        color: white;
-        margin-bottom: 16px;
-        letter-spacing: -0.01em;
-    }
-    .cta-body {
-        font-size: 17px;
-        line-height: 1.6;
-        color: rgba(255,255,255,0.85);
-        margin-bottom: 28px;
-        max-width: 520px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .cta-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        min-height: 56px;
-        padding: 0 28px;
-        background: var(--accent-crimson);
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: 8px;
-    }
-    .cta-button:hover { background: #9f1616; }
-    @media (min-width: 768px) { .cta-title { font-size: 32px; } }
-
-    /* PAGE NAV */
-    .page-nav { padding: 40px 0 56px; display: flex; gap: 12px; }
-    .page-nav-link { flex: 1; min-height: 64px; padding: 18px 20px; border-radius: 10px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background 0.15s, border-color 0.15s; border: 1px solid var(--border-medium); background: white; }
+    /* PAGE NAV / FOOTER */
+    .page-nav { padding: 40px 0 64px; display: flex; gap: 12px; }
+    .page-nav-link { flex: 1; min-height: 64px; padding: 16px 20px; border-radius: 10px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background 0.15s, border-color 0.15s; border: 1px solid var(--border-medium); background: white; }
     .page-nav-prev { text-align: left; color: var(--text-secondary); }
     .page-nav-prev:hover { border-color: var(--accent-charcoal); }
     .page-nav-next { background: var(--accent-charcoal); color: white; text-align: right; border-color: var(--accent-charcoal); }
     .page-nav-next:hover { background: #0f1218; }
-    .page-nav-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
-    .page-nav-title { font-size: 15px; font-weight: 700; line-height: 1.3; }
-    @media (min-width: 640px) { .page-nav-title { font-size: 16px; } }
+    .page-nav-label { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; opacity: 0.6; margin-bottom: 3px; }
+    .page-nav-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
 
-    /* FOOTER */
-    .footer { background: var(--accent-charcoal); color: var(--text-inverse); padding: 40px 0; }
-    .footer-brand { font-size: 13px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 10px; }
-    .footer-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
-    .footer-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; padding: 8px 0; min-height: 40px; display: inline-flex; align-items: center; }
-    .footer-links a:hover { color: white; }
+    .footer { background: var(--bg-secondary); padding: 32px 0; border-top: 1px solid var(--border-light); text-align: center; }
+    .footer-text { font-size: 12px; color: var(--text-muted); letter-spacing: 0.3px; }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav class="nav">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">COLLISION INTELLIGENCE</a>
@@ -243,45 +164,51 @@
     </div>
 </nav>
 
+<!-- PROGRESS -->
 <div class="progress">
     <div class="progress-inner">
-        <div class="progress-track"><div class="progress-fill" style="width: 100%"></div></div>
-        <div class="progress-label">Glossary · Reference</div>
+        <div class="progress-track"><div class="progress-fill" style="width: 100%;"></div></div>
+        <div class="progress-label">Page 5 of 5 · Glossary</div>
     </div>
 </div>
 
 <!-- HERO -->
-<header class="page-hero">
+<section class="page-hero">
     <div class="container">
         <div class="hero-eyebrow">Glossary</div>
-        <h1 class="hero-title">Every term that might slow you down, explained.</h1>
+        <h1 class="hero-title">Every Term We Use — Defined Plainly.</h1>
         <p class="hero-lede">
-            <span class="dropcap">N</span>obody should have to Google "DEG" to read a briefing written for them. This is the full plain-English dictionary of every industry-specific term used in these five pages. Alphabetical. No jargon.
+            This hub uses collision-industry vocabulary on purpose. It's how shop owners talk. But if you're a controller, a partner, a lender, or anyone else evaluating the fleet, this glossary covers every term we leaned on, alphabetically.
         </p>
     </div>
-</header>
+</section>
 
-<!-- ALPHA INDEX -->
-<nav class="alpha-index">
-    <div class="container">
-        <div class="alpha-list">
-            <a href="#a" class="alpha-letter">A</a>
-            <a href="#b" class="alpha-letter">B</a>
-            <a href="#c" class="alpha-letter">C</a>
-            <a href="#d" class="alpha-letter">D</a>
-            <a href="#e" class="alpha-letter">E</a>
-            <a href="#f" class="alpha-letter">F</a>
-            <a href="#h" class="alpha-letter">H</a>
-            <a href="#m" class="alpha-letter">M</a>
-            <a href="#n" class="alpha-letter">N</a>
-            <a href="#o" class="alpha-letter">O</a>
-            <a href="#p" class="alpha-letter">P</a>
-            <a href="#q" class="alpha-letter">Q</a>
-            <a href="#r" class="alpha-letter">R</a>
-            <a href="#s" class="alpha-letter">S</a>
-            <a href="#t" class="alpha-letter">T</a>
-            <a href="#v" class="alpha-letter">V</a>
-        </div>
+<!-- JUMP NAV -->
+<nav class="jumpnav" aria-label="Jump to letter">
+    <div class="jumpnav-inner">
+        <a href="#A">A</a>
+        <a href="#B">B</a>
+        <a href="#C">C</a>
+        <a href="#D">D</a>
+        <a href="#E">E</a>
+        <a href="#F">F</a>
+        <a href="#G" class="disabled">G</a>
+        <a href="#H">H</a>
+        <a href="#I">I</a>
+        <a href="#J" class="disabled">J</a>
+        <a href="#K" class="disabled">K</a>
+        <a href="#L">L</a>
+        <a href="#M">M</a>
+        <a href="#N">N</a>
+        <a href="#O">O</a>
+        <a href="#P">P</a>
+        <a href="#Q" class="disabled">Q</a>
+        <a href="#R">R</a>
+        <a href="#S">S</a>
+        <a href="#T">T</a>
+        <a href="#U" class="disabled">U</a>
+        <a href="#V">V</a>
+        <a href="#W">W</a>
     </div>
 </nav>
 
@@ -290,265 +217,337 @@
     <div class="container">
 
         <!-- A -->
-        <div class="letter-group" id="a">
-            <div class="letter-header">A</div>
-            <div class="letter-label">Alpha entries</div>
+        <div class="letter-block" id="A">
+            <h2 class="letter-heading">A</h2>
 
-            <div class="term-entry" id="term-acv">
-                <div class="term-name">ACV — Actual Cash Value</div>
-                <div class="term-alias">"the market value of the car"</div>
-                <div class="term-def-text">What the vehicle is worth on the used market right now, in its pre-loss condition. Insurers use this to decide whether to repair a damaged car or write it off. If the repair cost plus the salvage value exceeds ACV × a state-specific percentage, the car is a total loss.</div>
+            <div class="entry">
+                <div class="entry-term">ACV</div>
+                <div class="entry-expand">Actual Cash Value</div>
+                <p class="entry-def">The carrier's pre-loss valuation of a vehicle. Combined with the repair estimate, ACV determines whether a job is repaired or declared a total loss. If the estimate approaches the state's total-loss threshold as a percentage of ACV, the repair order ends and a settlement begins.</p>
             </div>
 
-            <div class="term-entry" id="term-adas">
-                <div class="term-name">ADAS — Advanced Driver Assistance Systems</div>
-                <div class="term-alias">"the safety sensors"</div>
-                <div class="term-def-text">All the cameras, radars, and sensors that handle lane-keeping, automatic emergency braking, adaptive cruise, blind-spot warnings, etc. Almost every 2020+ vehicle has them. After a collision, most of these systems require recalibration before the car is legally and safely driveable.</div>
+            <div class="entry">
+                <div class="entry-term">ADAS</div>
+                <div class="entry-expand">Advanced Driver Assistance Systems</div>
+                <p class="entry-def">The sensor and camera systems — lane-keep, adaptive cruise, blind-spot, automatic emergency braking — that are standard on roughly 60% of 2025 model-year vehicles. ADAS calibration after collision repair is a specialized operation often performed as a sublet.</p>
             </div>
 
-            <div class="term-entry" id="term-adjuster">
-                <div class="term-name">Adjuster</div>
-                <div class="term-alias">"the insurance person on the claim"</div>
-                <div class="term-def-text">The insurance company employee (or contractor) who reviews, approves, or rejects the repair estimate. The person your estimator is negotiating with every time a supplement goes back and forth.</div>
+            <div class="entry">
+                <div class="entry-term">ARMS</div>
+                <div class="entry-expand">Automated Rental Management System</div>
+                <p class="entry-def">Enterprise's portal for coordinating loaner/rental authorizations between shops, carriers, and rental branches. Extensions require manual entry of delay reason codes and new return dates — which is exactly what Agent 03 automates.</p>
             </div>
 
-            <div class="term-entry" id="term-arms">
-                <div class="term-name">ARMS — Automated Rental Management System</div>
-                <div class="term-alias">"Enterprise's shop portal"</div>
-                <div class="term-def-text">The rental car system Enterprise uses. When a customer is in a rental while their car's being repaired, your shop logs into ARMS to authorize, extend, or close out the rental. Hertz and other rental companies have their own equivalent portals.</div>
+            <div class="entry">
+                <div class="entry-term">Audatex</div>
+                <p class="entry-def">One of the three major estimating platforms used in North American collision. Audatex (owned by Solera) exposes its integration surface through the OAS3 standard.</p>
             </div>
         </div>
 
         <!-- B -->
-        <div class="letter-group" id="b">
-            <div class="letter-header">B</div>
+        <div class="letter-block" id="B">
+            <h2 class="letter-heading">B</h2>
 
-            <div class="term-entry" id="term-bev">
-                <div class="term-name">BEV — Battery Electric Vehicle</div>
-                <div class="term-alias">"a fully electric car"</div>
-                <div class="term-def-text">A vehicle that runs only on battery — no gas engine at all. Teslas, Rivians, Mach-E, Ioniq 5, etc. Requires high-voltage safety procedures during any repair that touches structural or electrical components.</div>
+            <div class="entry">
+                <div class="entry-term">BEV</div>
+                <div class="entry-expand">Battery Electric Vehicle</div>
+                <p class="entry-def">A fully electric vehicle with no internal combustion engine — Tesla, Rivian, Ford Lightning, Chevrolet Equinox EV, and so on. Collision work on BEVs requires high-voltage safety procedures that Agent 05 documents and bills automatically.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Blend</div>
+                <p class="entry-def">A paint operation where color is extended into an adjacent undamaged panel to avoid a visible transition line. Blend time is a P-Page item that is often under-written on estimates, making it a common target for Agent 01's scrub.</p>
             </div>
         </div>
 
         <!-- C -->
-        <div class="letter-group" id="c">
-            <div class="letter-header">C</div>
+        <div class="letter-block" id="C">
+            <h2 class="letter-heading">C</h2>
 
-            <div class="term-entry" id="term-calibration">
-                <div class="term-name">Calibration</div>
-                <div class="term-alias">"re-aiming the car's sensors"</div>
-                <div class="term-def-text">After a collision repair, the ADAS sensors (cameras, radars) need to be precisely re-aligned or they'll malfunction. This is calibration. Sometimes done in-shop, often sent out to a specialty vendor (Elitek, Precision Diagnostics, AirPro). Required on roughly 60% of repairs in 2025+.</div>
+            <div class="entry">
+                <div class="entry-term">CCC ONE</div>
+                <p class="entry-def">CCC Intelligent Solutions' estimating and workflow platform — the dominant system in North American collision, used by roughly 28,000 shops. CCC ONE is the source of most workfile events the fleet listens to.</p>
             </div>
 
-            <div class="term-entry" id="term-ccc">
-                <div class="term-name">CCC ONE</div>
-                <div class="term-alias">"the estimating software"</div>
-                <div class="term-def-text">The most widely used estimating software in the US collision industry — about 28,000 shops use it. Made by CCC Intelligent Solutions. "CCC ONE" is their core platform. Mitchell and Audatex/Solera are the other two major players.</div>
+            <div class="entry">
+                <div class="entry-term">CCC Secure Share</div>
+                <p class="entry-def">CCC's developer integration surface (<code>cccsecureshare.com/Developers</code>) that exposes workfile read/write, webhook subscriptions, and image attachment endpoints. All fleet agents touching a CCC workfile use Secure Share — no scraping, no screen-reading.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Claude Code Routines</div>
+                <p class="entry-def">Anthropic's platform for scheduled, API-triggered, and webhook-triggered agent workflows. Runs on Anthropic's cloud infrastructure with built-in audit logging and credential handling. The fleet runs on Routines — nothing is installed on the shop's network.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">CRIB 188</div>
+                <div class="entry-expand">Collision Repair Industry Bulletin #188</div>
+                <p class="entry-def">The industry-recognized reference defining teardown as a billable diagnostic operation separate from repair labor. Used by Agent 04 to attach procedural justification to every teardown line item.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">CSI</div>
+                <div class="entry-expand">Customer Satisfaction Index</div>
+                <p class="entry-def">Carrier-issued performance score tied to DRP standing. Delayed or unclear customer communication is one of the top CSI drags — which is why Agent 03's customer SMS output matters even though the direct labor savings are modest.</p>
             </div>
         </div>
 
         <!-- D -->
-        <div class="letter-group" id="d">
-            <div class="letter-header">D</div>
+        <div class="letter-block" id="D">
+            <h2 class="letter-heading">D</h2>
 
-            <div class="term-entry" id="term-deg">
-                <div class="term-name">DEG — Database of Estimator's Guide</div>
-                <div class="term-alias">"the independent rulings database"</div>
-                <div class="term-def-text">An independent industry body that publishes rulings on which operations should be included or excluded from standard estimates. When you add a line to an estimate and the adjuster pushes back, DEG rulings are the evidence you cite. Free, public, updated constantly.</div>
+            <div class="entry">
+                <div class="entry-term">DEG</div>
+                <div class="entry-expand">Database of Expert Justification</div>
+                <p class="entry-def">The industry's clearinghouse for inquiries and rulings on what the estimating systems do and don't include by default. When a shop needs to justify a not-included operation, DEG is the authoritative citation. Agent 01 pulls current DEG rulings on every fire.</p>
             </div>
 
-            <div class="term-entry" id="term-drp">
-                <div class="term-name">DRP — Direct Repair Program</div>
-                <div class="term-alias">"the insurance carrier contract"</div>
-                <div class="term-def-text">A contract between your shop and an insurance carrier (State Farm, Allstate, Progressive, etc.) that refers claims to you in exchange for agreed-upon pricing, markup caps, and procedure rules. Most shops have 2–6 DRP relationships at a time. Each has different rules.</div>
+            <div class="entry">
+                <div class="entry-term">DRP</div>
+                <div class="entry-expand">Direct Repair Program</div>
+                <p class="entry-def">Contractual arrangement between a carrier and a shop in which volume is exchanged for agreed-upon labor rates, cycle-time discipline, and operational standards. Every DRP has its own markup rules, delay-reason code schema, and notification obligations — which is why Agent 02's markup calculation and Agent 03's portal notes are per-DRP configured.</p>
             </div>
         </div>
 
         <!-- E -->
-        <div class="letter-group" id="e">
-            <div class="letter-header">E</div>
+        <div class="letter-block" id="E">
+            <h2 class="letter-heading">E</h2>
 
-            <div class="term-entry" id="term-e01">
-                <div class="term-name">E01 / Total Loss</div>
-                <div class="term-alias">"the car's being written off"</div>
-                <div class="term-def-text">When the cost to repair a vehicle exceeds a state-specific percentage of its actual cash value, the insurer writes it off rather than paying for repair. "E01" is a shorthand code used in estimating software to flag a probable total loss. Different states use different thresholds (typically 70–80%).</div>
+            <div class="entry">
+                <div class="entry-term">E01</div>
+                <p class="entry-def">The dollar threshold at which a vehicle is declared a total loss. Varies by state (typically 70–80% of ACV). Crossing E01 ends the repair and begins the settlement. Agent 04's entire purpose is predicting this crossing <em>before</em> teardown.</p>
             </div>
 
-            <div class="term-entry" id="term-ecd">
-                <div class="term-name">ECD — Estimated Completion Date</div>
-                <div class="term-alias">"when the car will be ready"</div>
-                <div class="term-def-text">The date your shop promises the vehicle will be ready for the customer. When it slips, everyone — the customer, the rental company, the insurer — needs to be updated. One of the most common administrative pains in the business.</div>
+            <div class="entry">
+                <div class="entry-term">ECD</div>
+                <div class="entry-expand">Estimated Completion Date</div>
+                <p class="entry-def">The live delivery promise inside the shop management system. When ECD changes, downstream obligations cascade — rental extension, carrier portal note, customer SMS. Agent 03 listens to ECD changes as its primary trigger.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Estimate</div>
+                <p class="entry-def">The initial damage assessment written in CCC ONE, Mitchell, or Audatex. The estimate is the contract for the repair — everything downstream references it. A supplement amends it when additional damage is discovered.</p>
             </div>
         </div>
 
         <!-- F -->
-        <div class="letter-group" id="f">
-            <div class="letter-header">F</div>
+        <div class="letter-block" id="F">
+            <h2 class="letter-heading">F</h2>
 
-            <div class="term-entry" id="term-fnol">
-                <div class="term-name">FNOL — First Notice of Loss</div>
-                <div class="term-alias">"when the claim opens"</div>
-                <div class="term-def-text">The moment a customer tells their insurance company that something happened to their car. Usually includes a few photos, a description of the damage, and a police report. This is the earliest signal your shop can get about an incoming job — before the vehicle even arrives.</div>
+            <div class="entry">
+                <div class="entry-term">FNOL</div>
+                <div class="entry-expand">First Notice of Loss</div>
+                <p class="entry-def">The carrier's initial record of a claim, often with photos uploaded by the customer or field adjuster. Agent 04 reads FNOL photos when available as a secondary signal for severity prediction before the car even arrives at the shop.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Feather-Prime-Block</div>
+                <p class="entry-def">A refinish preparation operation on adjacent panels to achieve paint match without visible transition. A frequently missed P-Page line — one of the highest-frequency targets for Agent 01's scrub.</p>
             </div>
         </div>
 
         <!-- H -->
-        <div class="letter-group" id="h">
-            <div class="letter-header">H</div>
+        <div class="letter-block" id="H">
+            <h2 class="letter-heading">H</h2>
 
-            <div class="term-entry" id="term-hv">
-                <div class="term-name">HV — High Voltage</div>
-                <div class="term-alias">"electric-car safety stuff"</div>
-                <div class="term-def-text">Refers to the 200V+ battery systems in hybrids and electric vehicles. Repairing anywhere near an HV system without proper isolation, lock-out/tag-out, and PPE can kill a technician. Every EV repair requires documented HV safety procedures.</div>
+            <div class="entry">
+                <div class="entry-term">HEV / PHEV</div>
+                <div class="entry-expand">Hybrid Electric Vehicle / Plug-in Hybrid Electric Vehicle</div>
+                <p class="entry-def">Vehicles combining an internal combustion engine with an electric drivetrain. Both require high-voltage safety procedures when damage affects the HV system. Agent 05 covers HEV, PHEV, and BEV equally.</p>
             </div>
 
-            <div class="term-entry" id="term-hirs">
-                <div class="term-name">HIRS — Hertz Integrated Rental System</div>
-                <div class="term-alias">"Hertz's version of ARMS"</div>
-                <div class="term-def-text">The rental car portal for Hertz. When a customer rents from Hertz during their repair, your shop manages the authorization and extensions through HIRS. Same idea as Enterprise's ARMS, different vendor, different login.</div>
+            <div class="entry">
+                <div class="entry-term">HIRS</div>
+                <div class="entry-expand">Hertz Integrated Rental System</div>
+                <p class="entry-def">Hertz's shop/carrier rental portal, equivalent in function to Enterprise ARMS. Most DRP shops juggle both portals depending on which carrier sent the customer. Agent 03 authenticates into whichever applies.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">HV</div>
+                <div class="entry-expand">High Voltage</div>
+                <p class="entry-def">On EVs and hybrids, any system operating above 60V DC. HV procedures include lock-out/tag-out, isolation verification, 50-foot thermal quarantine, and OEM-specific battery attestations. Agent 05 dispatches the correct checklist per make and model.</p>
+            </div>
+        </div>
+
+        <!-- I -->
+        <div class="letter-block" id="I">
+            <h2 class="letter-heading">I</h2>
+
+            <div class="entry">
+                <div class="entry-term">I-CAR RTS</div>
+                <div class="entry-expand">I-CAR Repairability Technical Support</div>
+                <p class="entry-def">The industry's technical-reference database for OEM repair procedures and position statements. Agent 05 cross-references I-CAR RTS on every HV-vehicle intake to build the make/model-specific compliance checklist.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">ImageAttachment API</div>
+                <p class="entry-def">The endpoint family (present in Mitchell and Audatex) for programmatically attaching PDFs and images to a workfile. Agent 02 uses ImageAttachment to post sublet invoices into the repair record on arrival.</p>
+            </div>
+        </div>
+
+        <!-- L -->
+        <div class="letter-block" id="L">
+            <h2 class="letter-heading">L</h2>
+
+            <div class="entry">
+                <div class="entry-term">LKQ</div>
+                <div class="entry-expand">Like Kind &amp; Quality</div>
+                <p class="entry-def">Recycled or aftermarket parts specified in lieu of OEM. LKQ designation on an estimate line has downstream labor-time implications that the P-Page scrubber accounts for.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Lock-Out / Tag-Out</div>
+                <p class="entry-def">A safety procedure where a high-voltage system is deliberately isolated and the isolation is documented with a physical tag and a digital record. A required step on every HV repair — and a document trail Agent 05 produces automatically.</p>
             </div>
         </div>
 
         <!-- M -->
-        <div class="letter-group" id="m">
-            <div class="letter-header">M</div>
+        <div class="letter-block" id="M">
+            <h2 class="letter-heading">M</h2>
 
-            <div class="term-entry" id="term-mitchell">
-                <div class="term-name">Mitchell</div>
-                <div class="term-alias">"another estimating software"</div>
-                <div class="term-def-text">Mitchell International — one of the three major estimating software vendors (CCC, Mitchell, Audatex). Many shops use Mitchell instead of or alongside CCC, especially on the mechanical side of the business.</div>
+            <div class="entry">
+                <div class="entry-term">MCP</div>
+                <div class="entry-expand">Model Context Protocol</div>
+                <p class="entry-def">Anthropic's open standard for connecting language models to real tools and data sources. MCP is the plumbing that lets an agent talk to CCC Secure Share, Mitchell, ARMS, email, and anything else — safely and with audit logging.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Mitchell Transactional API</div>
+                <p class="entry-def">Mitchell International's developer integration surface (<code>developer.mitchell.com/apis</code>) for workfile read/write, estimate modification, and status subscriptions. The fleet's primary Mitchell integration path.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">MSO</div>
+                <div class="entry-expand">Multi-Shop Operator</div>
+                <p class="entry-def">A collision group running multiple shops under unified ownership — from two-location operators up to regional and national platforms. The Enterprise tier of the fleet is built for MSOs.</p>
             </div>
         </div>
 
         <!-- N -->
-        <div class="letter-group" id="n">
-            <div class="letter-header">N</div>
+        <div class="letter-block" id="N">
+            <h2 class="letter-heading">N</h2>
 
-            <div class="term-entry" id="term-not-included">
-                <div class="term-name">Not-Included Operation</div>
-                <div class="term-alias">"labor you have to add manually"</div>
-                <div class="term-def-text">A repair operation that is NOT automatically included in the standard labor time published by the estimating software. Someone has to identify it and type it in as a separate line. Examples: masking, feather-prime-block, corrosion protection, post-repair test drive. These are where most "missed money" on estimates lives.</div>
+            <div class="entry">
+                <div class="entry-term">Not-Included Operation</div>
+                <p class="entry-def">An operation that is not built into a given labor time and must be written as a separate line item to be billable. Masking, weld-through primer, feather-prime-block, ceramic coating removal, OEM rivets, and final test drive are all common not-included operations. Agent 01's core job.</p>
             </div>
         </div>
 
         <!-- O -->
-        <div class="letter-group" id="o">
-            <div class="letter-header">O</div>
+        <div class="letter-block" id="O">
+            <h2 class="letter-heading">O</h2>
 
-            <div class="term-entry" id="term-oem">
-                <div class="term-name">OEM — Original Equipment Manufacturer</div>
-                <div class="term-alias">"the car's manufacturer"</div>
-                <div class="term-def-text">The company that made the vehicle — Ford, Toyota, BMW, etc. "OEM procedures" are the official repair instructions published by the manufacturer. Following OEM procedures is increasingly a legal and insurance requirement, especially on ADAS-equipped and EV vehicles.</div>
+            <div class="entry">
+                <div class="entry-term">OAS3</div>
+                <p class="entry-def">OpenAPI Specification v3 — the machine-readable API description format used by Audatex/Solera for their developer integration surface. Governs how the fleet reads and writes Audatex workfiles.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">OEM</div>
+                <div class="entry-expand">Original Equipment Manufacturer</div>
+                <p class="entry-def">The vehicle manufacturer — Ford, GM, Toyota, Mercedes-Benz, Tesla, and so on. OEM position statements (published repair procedures, mandated parts, mandated calibrations) are the authoritative reference for how a specific vehicle must be repaired. Agent 01 and Agent 05 both consult OEM data on every fire.</p>
             </div>
         </div>
 
         <!-- P -->
-        <div class="letter-group" id="p">
-            <div class="letter-header">P</div>
+        <div class="letter-block" id="P">
+            <h2 class="letter-heading">P</h2>
 
-            <div class="term-entry" id="term-p-page">
-                <div class="term-name">P-Pages — Procedure Pages</div>
-                <div class="term-alias">"the software's labor-time rulebook"</div>
-                <div class="term-def-text">Official documentation from CCC, Mitchell, and Audatex that defines exactly which operations are included in each standard labor time, and which require separate manual line entry. When an adjuster challenges a line, P-Pages are the first-line evidence.</div>
+            <div class="entry">
+                <div class="entry-term">P-Page</div>
+                <div class="entry-expand">Procedure Pages</div>
+                <p class="entry-def">The rule document embedded in every estimating system that dictates which operations are included in a labor time and which must be written as a separate line item. Ignoring the P-Page is how shops leak money on every single estimate. Agent 01 lives here.</p>
             </div>
 
-            <div class="term-entry" id="term-phev">
-                <div class="term-name">PHEV — Plug-in Hybrid Electric Vehicle</div>
-                <div class="term-alias">"part gas, part electric"</div>
-                <div class="term-def-text">A car that has both an internal combustion engine AND a battery system large enough to drive short distances purely on electricity. Requires HV safety procedures just like a full EV during repair. Common examples: Toyota RAV4 Prime, Ford Escape PHEV, Jeep Wrangler 4xe.</div>
+            <div class="entry">
+                <div class="entry-term">PDR</div>
+                <div class="entry-expand">Paintless Dent Repair</div>
+                <p class="entry-def">A specialized repair process for small dents without refinishing. Commonly sublet to PDR specialists — meaning PDR invoices flow through Agent 02's reconciliation workflow.</p>
             </div>
-        </div>
 
-        <!-- Q -->
-        <div class="letter-group" id="q">
-            <div class="letter-header">Q</div>
-
-            <div class="term-entry" id="term-quarantine">
-                <div class="term-name">Quarantine (EV Battery)</div>
-                <div class="term-alias">"50-foot safe zone around a damaged battery"</div>
-                <div class="term-def-text">When an electric vehicle battery is damaged and at risk of thermal runaway (fire), OEM procedures require the vehicle to sit in a 50-foot isolation zone or in a specialized "ecology block" containment structure until it's declared safe. Typically rented at $85+/day.</div>
+            <div class="entry">
+                <div class="entry-term">Portal Tax</div>
+                <p class="entry-def">Our shorthand for the cumulative time a shop burns keeping external systems in sync — rental portals, carrier portals, customer notifications — every time the internal schedule moves. Agent 03 targets this specifically.</p>
             </div>
         </div>
 
         <!-- R -->
-        <div class="letter-group" id="r">
-            <div class="letter-header">R</div>
+        <div class="letter-block" id="R">
+            <h2 class="letter-heading">R</h2>
 
-            <div class="term-entry" id="term-repair-order">
-                <div class="term-name">Repair Order (RO)</div>
-                <div class="term-alias">"the job file"</div>
-                <div class="term-def-text">The central document that tracks a single vehicle's repair from intake to delivery. Contains the estimate, supplements, parts orders, sublet invoices, notes, photos, everything. Also called a "workfile" in some software.</div>
+            <div class="entry">
+                <div class="entry-term">RO</div>
+                <div class="entry-expand">Repair Order</div>
+                <p class="entry-def">The shop-side record of a repair job, often but not always 1:1 with the carrier's workfile. The RO tracks internal scheduling, tech assignment, parts ordering, and cycle time.</p>
             </div>
 
-            <div class="term-entry" id="term-routine">
-                <div class="term-name">Routine (Claude Code Routine)</div>
-                <div class="term-alias">"Anthropic's term for a scheduled AI agent"</div>
-                <div class="term-def-text">The specific Anthropic platform feature this whole product is built on. A Routine is an AI agent that runs automatically in response to a trigger — a scheduled time, an API call, an incoming webhook. Released publicly in April 2026. Every agent in this hub is a Routine.</div>
+            <div class="entry">
+                <div class="entry-term">Routine</div>
+                <p class="entry-def">In this hub, a routine is a Claude Code Routine — a trigger + prompt + toolset that executes when its event fires. Every agent in the fleet is a routine with a specific configuration.</p>
             </div>
         </div>
 
         <!-- S -->
-        <div class="letter-group" id="s">
-            <div class="letter-header">S</div>
+        <div class="letter-block" id="S">
+            <h2 class="letter-heading">S</h2>
 
-            <div class="term-entry" id="term-secure-share">
-                <div class="term-name">Secure Share (CCC)</div>
-                <div class="term-alias">"how CCC shares estimate data"</div>
-                <div class="term-def-text">CCC's API platform for allowing third-party tools (like these agents) to read and write estimate data in CCC ONE. The authorized integration path — no screen scraping, no workarounds.</div>
+            <div class="entry">
+                <div class="entry-term">SMS</div>
+                <p class="entry-def">In this hub, SMS means Shop Management System — the software of record for the repair order, scheduling, and cycle time (CCC ONE, Mitchell, and so on). SMS also means Short Message Service (text messages to customers); context disambiguates.</p>
             </div>
 
-            <div class="term-entry" id="term-sublet">
-                <div class="term-name">Sublet</div>
-                <div class="term-alias">"work outsourced to a specialty vendor"</div>
-                <div class="term-def-text">Any repair work you send to an outside vendor — typically ADAS calibration, glass replacement, mechanical alignment, or specialized diagnostics. The vendor sends you a PDF invoice; you add it as a sublet line on the repair order (with your allowed markup).</div>
+            <div class="entry">
+                <div class="entry-term">Sublet</div>
+                <p class="entry-def">Work performed off-site by a specialist vendor — scans, calibrations, ADAS work, paintless dent repair, glass, mechanical — that the shop invoices through the primary repair order. Sublet reconciliation is Agent 02's domain.</p>
             </div>
 
-            <div class="term-entry" id="term-supplement">
-                <div class="term-name">Supplement</div>
-                <div class="term-alias">"an addition to the original estimate"</div>
-                <div class="term-def-text">When additional damage or additional operations are discovered after the original estimate, you submit a supplement. Common after teardown. Adjusters approve or push back on supplements constantly. A big source of the "estimating battlefield."</div>
+            <div class="entry">
+                <div class="entry-term">Supplement</div>
+                <p class="entry-def">An amendment to an estimate after additional damage or required operations are discovered, often post-teardown. Agent 01 scrubs supplements on save just like the original estimate.</p>
             </div>
         </div>
 
         <!-- T -->
-        <div class="letter-group" id="t">
-            <div class="letter-header">T</div>
+        <div class="letter-block" id="T">
+            <h2 class="letter-heading">T</h2>
 
-            <div class="term-entry" id="term-teardown">
-                <div class="term-name">Teardown</div>
-                <div class="term-alias">"taking the car apart to see the real damage"</div>
-                <div class="term-def-text">The process of removing panels, components, and trim to reveal hidden damage that wasn't visible in the initial estimate photos. Takes 2–8 hours depending on severity. You can't properly write a complete estimate without doing it — but if the car totals out, the teardown labor is often disputed.</div>
+            <div class="entry">
+                <div class="entry-term">Teardown</div>
+                <p class="entry-def">The disassembly of damaged components to expose all underlying damage for a complete estimate. Teardown is a billable diagnostic operation (CRIB 188) — but carriers often dispute teardown hours on vehicles that subsequently total. Agent 04 prevents the waste and defends the hours.</p>
             </div>
 
-            <div class="term-entry" id="term-trigger">
-                <div class="term-name">Trigger</div>
-                <div class="term-alias">"the event that starts the agent"</div>
-                <div class="term-def-text">Any observable event in your shop that the agent can listen for — a new estimate saved, an email received, a VIN decoded, a date changed. The core thesis of this whole product: triggers are what make AI useful, not the AI itself.</div>
+            <div class="entry">
+                <div class="entry-term">Total Loss</div>
+                <p class="entry-def">A claim outcome where the repair cost crosses the E01 threshold and the carrier settles with the owner instead of authorizing repair. The industry total-loss rate ran 22.8% in Q4 2025.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-term">Trigger</div>
+                <p class="entry-def">A specific, observable change in a system of record — an assignment landing, an email arriving, a VIN decoding — that a routine can listen for and act on. In our thesis, the trigger <em>is</em> the product: the model is a commodity, the triggers are the differentiator.</p>
             </div>
         </div>
 
         <!-- V -->
-        <div class="letter-group" id="v">
-            <div class="letter-header">V</div>
+        <div class="letter-block" id="V">
+            <h2 class="letter-heading">V</h2>
 
-            <div class="term-entry" id="term-vin">
-                <div class="term-name">VIN — Vehicle Identification Number</div>
-                <div class="term-alias">"the car's 17-character fingerprint"</div>
-                <div class="term-def-text">Every vehicle has a unique 17-character code that identifies the year, make, model, trim, engine, assembly plant, and more. "VIN decode" means running those 17 characters through a lookup to pull back all the vehicle's specs — including whether it's a hybrid, EV, or has specific ADAS equipment.</div>
+            <div class="entry">
+                <div class="entry-term">VIN</div>
+                <div class="entry-expand">Vehicle Identification Number</div>
+                <p class="entry-def">The unique 17-character code on every vehicle. Decoding a VIN reveals make, model, year, drivetrain, and build options — and is the trigger signal for Agent 05's HV detection.</p>
             </div>
         </div>
 
-    </div>
-</section>
+        <!-- W -->
+        <div class="letter-block" id="W">
+            <h2 class="letter-heading">W</h2>
 
-<!-- CTA -->
-<section class="cta-final">
-    <div class="container">
-        <h2 class="cta-title">You've read the whole thing.</h2>
-        <p class="cta-body">If any of the five leaks sounded familiar, and if the math makes sense for your shop, the next step is a 30-minute call. We look at your real numbers together, then decide if a pilot makes sense.</p>
-        <a href="mailto:james@intersection-strategies.com?subject=Pilot%20conversation%20%E2%80%94%20Collision%20Intelligence" class="cta-button">
-            Start a pilot conversation <span style="font-size:20px;">→</span>
-        </a>
+            <div class="entry">
+                <div class="entry-term">Workfile</div>
+                <p class="entry-def">The carrier/platform-side record of a claim and its associated estimate(s), supplements, photos, notes, and status. The workfile is the shared source of truth between shop, carrier, and platform — which is why so many agents read from and write into it.</p>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -560,8 +559,8 @@
             <div class="page-nav-title">How It Works</div>
         </a>
         <a href="index.html" class="page-nav-link page-nav-next">
-            <div class="page-nav-label">Back to top →</div>
-            <div class="page-nav-title">Start Over</div>
+            <div class="page-nav-label">Next →</div>
+            <div class="page-nav-title">Back to the Overview</div>
         </a>
     </div>
 </div>
@@ -569,17 +568,7 @@
 <!-- FOOTER -->
 <footer class="footer">
     <div class="container">
-        <div class="footer-brand">COLLISION INTELLIGENCE</div>
-        <div class="footer-sub">Intersection Strategies LLC · Version 2.0 — April 2026 · Field Edition</div>
-        <div class="footer-links">
-            <a href="index.html">Start Over</a>
-            <a href="the-problem.html">The Problem</a>
-            <a href="the-agents.html">The Agents</a>
-            <a href="the-math.html">The Math</a>
-            <a href="how-it-works.html">How It Works</a>
-            <a href="glossary.html">Glossary</a>
-            <a href="mailto:james@intersection-strategies.com">Contact</a>
-        </div>
+        <div class="footer-text">Intersection Strategies LLC · Collision Intelligence · Version 2.1 — April 2026 · Field Edition</div>
     </div>
 </footer>
 

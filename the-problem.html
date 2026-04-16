@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where does the money leak? — Collision Intelligence</title>
-<meta name="description" content="Five friction points quietly bleeding your collision shop. Told as stories, not jargon.">
+<title>The Five Leaks Bleeding Every Collision Shop — Collision Intelligence</title>
+<meta name="description" content="P-Page scrub gap. E01 teardown waste. Portal tax. Sublet reconciliation drag. EV compliance liability. Five friction points costing the average shop five figures a month.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -36,17 +36,26 @@
 
     body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 18px;
-        line-height: 1.7;
+        font-size: 17px;
+        line-height: 1.65;
         color: var(--text-primary);
         background: var(--bg-primary);
         -webkit-font-smoothing: antialiased;
     }
+    @media (min-width: 1024px) { body { font-size: 16px; } }
 
     .container {
-        max-width: 680px;
+        max-width: 960px;
         margin: 0 auto;
         padding: 0 20px;
+    }
+    .container-narrow {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    @media (min-width: 1024px) {
+        .container, .container-narrow { padding: 0 32px; }
     }
 
     /* ============ NAV ============ */
@@ -59,7 +68,7 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
     .nav-inner {
-        max-width: 1040px;
+        max-width: 1120px;
         margin: 0 auto;
         padding: 0 20px;
         display: flex;
@@ -79,7 +88,7 @@
         font-weight: 500;
         color: rgba(255,255,255,0.85);
         text-decoration: none;
-        padding: 10px 14px;
+        padding: 8px 14px;
         border: 1px solid rgba(255,255,255,0.25);
         border-radius: 6px;
         min-height: 40px;
@@ -95,7 +104,7 @@
         padding: 14px 0;
     }
     .progress-inner {
-        max-width: 680px;
+        max-width: 960px;
         margin: 0 auto;
         padding: 0 20px;
         display: flex;
@@ -126,12 +135,12 @@
     .page-hero {
         padding: 56px 0 40px;
         border-bottom: 1px solid var(--border-light);
+        background: var(--bg-secondary);
     }
-    .page-hero .container { max-width: 680px; }
     .hero-eyebrow {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
         text-transform: uppercase;
         color: var(--accent-crimson);
         margin-bottom: 18px;
@@ -139,28 +148,22 @@
     .hero-title {
         font-size: 32px;
         font-weight: 800;
-        line-height: 1.15;
-        letter-spacing: -0.02em;
+        line-height: 1.12;
+        letter-spacing: -0.022em;
         color: var(--text-primary);
-        margin-bottom: 24px;
+        margin-bottom: 22px;
+        max-width: 780px;
     }
     .hero-lede {
         font-size: 18px;
-        line-height: 1.7;
+        line-height: 1.6;
         color: var(--text-secondary);
+        max-width: 720px;
     }
-    .dropcap {
-        float: left;
-        font-size: 68px;
-        font-weight: 800;
-        line-height: 0.9;
-        padding: 6px 10px 0 0;
-        color: var(--accent-charcoal);
-    }
-    @media (min-width: 768px) {
-        .page-hero { padding: 80px 0 56px; }
+    @media (min-width: 1024px) {
+        .page-hero { padding: 88px 0 64px; }
         .hero-title { font-size: 44px; }
-        .hero-lede { font-size: 20px; }
+        .hero-lede { font-size: 19px; }
     }
 
     /* ============ STORY BLOCKS ============ */
@@ -169,31 +172,56 @@
         border-bottom: 1px solid var(--border-light);
     }
     .story:last-of-type { border-bottom: none; }
+    .story-header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+    }
     .story-num {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: var(--accent-crimson);
-        margin-bottom: 16px;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        background: rgba(185,28,28,0.08);
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+    .story-kicker {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
     .story-title {
         font-size: 26px;
-        font-weight: 700;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
+        font-weight: 800;
+        line-height: 1.18;
+        letter-spacing: -0.015em;
         color: var(--text-primary);
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
     .story-body {
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.7;
         color: var(--text-secondary);
     }
-    .story-body p + p { margin-top: 20px; }
-    @media (min-width: 768px) {
+    .story-body p + p { margin-top: 18px; }
+    .story-body strong { color: var(--text-primary); font-weight: 700; }
+    @media (min-width: 1024px) {
         .story { padding: 72px 0; }
         .story-title { font-size: 32px; }
+        .story-body { font-size: 16px; line-height: 1.75; }
+        .story-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
     }
 
     /* ============ INLINE TERM DEFINITION ============ */
@@ -220,7 +248,7 @@
         color: white;
         padding: 10px 14px;
         border-radius: 6px;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 400;
         font-style: normal;
         line-height: 1.5;
@@ -231,6 +259,7 @@
         transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
         z-index: 50;
         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        letter-spacing: 0;
     }
     .term-def::after {
         content: '';
@@ -242,83 +271,141 @@
         border-top-color: var(--accent-charcoal);
     }
 
-    /* ============ CALLOUT ============ */
+    /* ============ PULLQUOTE ============ */
     .pullquote {
         background: var(--bg-secondary);
         border-left: 4px solid var(--accent-crimson);
-        padding: 24px 24px 24px 28px;
-        margin: 32px 0;
+        padding: 22px 24px 22px 28px;
+        margin: 28px 0;
         border-radius: 4px;
     }
     .pullquote-text {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 500;
-        line-height: 1.5;
+        line-height: 1.55;
         color: var(--text-primary);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
     .pullquote-attr {
-        font-size: 13px;
+        font-size: 12px;
         color: var(--text-muted);
         font-weight: 500;
+        letter-spacing: 0.3px;
     }
 
-    /* ============ STAT INLINE ============ */
-    .stat-inline {
+    /* ============ SIDE STAT (desktop sidebar) ============ */
+    .side-stat {
         background: var(--accent-charcoal);
         color: white;
-        padding: 28px 24px;
+        padding: 24px 22px;
         border-radius: 10px;
-        margin: 32px 0;
-        text-align: center;
+        margin: 24px 0;
     }
-    .stat-inline-num {
-        font-size: 40px;
+    .side-stat-num {
+        font-family: 'Inter', sans-serif;
+        font-size: 34px;
         font-weight: 800;
-        color: var(--accent-crimson);
+        color: #ef4444;
         line-height: 1;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         letter-spacing: -0.02em;
     }
-    .stat-inline-label {
-        font-size: 15px;
-        color: rgba(255,255,255,0.85);
+    .side-stat-label {
+        font-size: 13px;
+        color: rgba(255,255,255,0.82);
         line-height: 1.5;
-        max-width: 480px;
-        margin: 0 auto;
+    }
+    .side-stat-source {
+        font-size: 11px;
+        color: rgba(255,255,255,0.48);
+        margin-top: 10px;
+        letter-spacing: 0.3px;
+    }
+    .side-cost {
+        background: rgba(185,28,28,0.06);
+        border: 1px solid rgba(185,28,28,0.18);
+        border-radius: 10px;
+        padding: 20px 22px;
+        margin: 24px 0;
+    }
+    .side-cost-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: var(--accent-crimson);
+        margin-bottom: 10px;
+    }
+    .side-cost-num {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1.1;
+        margin-bottom: 6px;
+        letter-spacing: -0.015em;
+    }
+    .side-cost-body {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.5;
     }
 
     /* ============ SUMMARY ============ */
     .summary {
-        background: var(--bg-secondary);
-        padding: 56px 0;
+        background: var(--accent-charcoal);
+        color: white;
+        padding: 64px 0;
         text-align: center;
     }
-    .summary-title {
-        font-size: 24px;
+    .summary-eyebrow {
+        font-size: 11px;
         font-weight: 700;
-        color: var(--text-primary);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
         margin-bottom: 16px;
-        line-height: 1.3;
+    }
+    .summary-title {
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.018em;
+        margin-bottom: 18px;
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .summary-body {
         font-size: 17px;
-        color: var(--text-secondary);
+        color: rgba(255,255,255,0.82);
         line-height: 1.6;
-        max-width: 540px;
-        margin: 0 auto;
+        max-width: 620px;
+        margin: 0 auto 28px;
+    }
+    .summary-total {
+        display: inline-block;
+        padding: 14px 24px;
+        background: var(--accent-crimson);
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+    }
+    @media (min-width: 1024px) {
+        .summary { padding: 88px 0; }
+        .summary-title { font-size: 34px; }
     }
 
     /* ============ PAGE NAV ============ */
     .page-nav {
-        padding: 40px 0 56px;
+        padding: 40px 0 64px;
         display: flex;
         gap: 12px;
     }
     .page-nav-link {
         flex: 1;
         min-height: 64px;
-        padding: 18px 20px;
+        padding: 16px 20px;
         border-radius: 10px;
         text-decoration: none;
         display: flex;
@@ -341,59 +428,36 @@
     }
     .page-nav-next:hover { background: #0f1218; }
     .page-nav-label {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
         text-transform: uppercase;
         opacity: 0.6;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
     }
     .page-nav-title {
         font-size: 15px;
         font-weight: 700;
-        line-height: 1.3;
-    }
-    @media (min-width: 640px) {
-        .page-nav-title { font-size: 16px; }
+        letter-spacing: -0.01em;
     }
 
     /* ============ FOOTER ============ */
     .footer {
-        background: var(--accent-charcoal);
-        color: var(--text-inverse);
-        padding: 40px 0;
+        background: var(--bg-secondary);
+        padding: 32px 0;
+        border-top: 1px solid var(--border-light);
+        text-align: center;
     }
-    .footer-brand {
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 1.8px;
-        margin-bottom: 10px;
+    .footer-text {
+        font-size: 12px;
+        color: var(--text-muted);
+        letter-spacing: 0.3px;
     }
-    .footer-sub {
-        font-size: 13px;
-        color: rgba(255,255,255,0.5);
-        margin-bottom: 20px;
-    }
-    .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    .footer-links a {
-        color: rgba(255,255,255,0.75);
-        text-decoration: none;
-        font-size: 14px;
-        padding: 8px 0;
-        min-height: 40px;
-        display: inline-flex;
-        align-items: center;
-    }
-    .footer-links a:hover { color: white; }
-
 </style>
 </head>
 <body>
 
+<!-- ============ NAV ============ -->
 <nav class="nav">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">COLLISION INTELLIGENCE</a>
@@ -401,127 +465,269 @@
     </div>
 </nav>
 
+<!-- ============ PROGRESS ============ -->
 <div class="progress">
     <div class="progress-inner">
-        <div class="progress-track"><div class="progress-fill" style="width: 20%"></div></div>
-        <div class="progress-label">Page 1 of 5</div>
+        <div class="progress-track"><div class="progress-fill" style="width: 20%;"></div></div>
+        <div class="progress-label">Page 1 of 5 · The Problem</div>
     </div>
 </div>
 
 <!-- ============ HERO ============ -->
-<header class="page-hero">
+<section class="page-hero">
     <div class="container">
         <div class="hero-eyebrow">The Problem</div>
-        <h1 class="hero-title">Where does the money actually leak?</h1>
+        <h1 class="hero-title">The Five Leaks Bleeding Every Collision Shop</h1>
         <p class="hero-lede">
-            <span class="dropcap">E</span>very collision shop in America has five silent drains running on the floor at all times. None of them are dramatic. None of them are obvious. They just quietly bleed five to six figures a month out of the business and nobody has time to plug them. Here they are.
+            Every shop owner I've walked the floor with describes the same five friction points. They're not news.
+            What's new is that each one is now a discrete <span class="term">trigger<span class="term-def">A real-world event — an assignment drop, an email, a VIN scan — that can be wired to an automated workflow.</span></span>
+            that a purpose-built agent can catch, route, and close before the job bleeds margin. This page names them.
+            The next page names the agents.
         </p>
     </div>
-</header>
+</section>
 
-<!-- ============ LEAK 1 ============ -->
+<!-- ============ LEAK 1 — P-PAGE SCRUB GAP ============ -->
 <section class="story">
     <div class="container">
-        <div class="story-num">LEAK 01</div>
-        <h2 class="story-title">The estimate that leaves $300 on the table. Every time.</h2>
-        <div class="story-body">
-            <p>Your estimator writes a repair order. They're working fast because there are six more cars on the lot. They miss the masking line. They miss the corrosion-protection step. They miss the test drive after calibration. They miss the hazardous waste disposal fee. Each of those is a <span class="term">not-included operation<span class="term-def">Labor steps that are NOT automatically included in the standard estimating software. Someone has to add them manually every time.</span></span> — real labor, real time, real money. The estimator knows they exist. They just forget to add them under pressure.</p>
-
-            <p>The adjuster receives the estimate and approves the lower version. You eat the difference.</p>
-
-            <p>The kicker: there are published rules from the estimating software vendors (what the industry calls <span class="term">P-Pages<span class="term-def">The "Procedure Pages" — the official documentation from CCC, Mitchell, and Audatex that tells you exactly which operations are and aren't included in their standard labor times.</span></span>) and independent rulings (the <span class="term">DEG database<span class="term-def">Database of Estimator's Guide — an independent industry body that publishes official rulings on which operations require manual entry.</span></span>) that tell you exactly which lines to add and why. Your estimator doesn't have time to cross-reference them every job.</p>
-
-            <div class="stat-inline">
-                <div class="stat-inline-num">$300–$800</div>
-                <div class="stat-inline-label">is the typical gap between a rushed estimate and a scrubbed one. Multiply by your monthly volume.</div>
+        <div class="story-grid">
+            <div>
+                <div class="story-header">
+                    <div class="story-num">Leak 01</div>
+                    <div class="story-kicker">Estimating · Net Revenue</div>
+                </div>
+                <h2 class="story-title">The P-Page Scrub Gap</h2>
+                <div class="story-body">
+                    <p>
+                        Every <span class="term">estimate<span class="term-def">The initial damage assessment written in CCC ONE, Mitchell, or Audatex that becomes the contract for the repair.</span></span>
+                        written in <span class="term">CCC ONE<span class="term-def">CCC Intelligent Solutions — the dominant estimating and workflow platform used by roughly 28,000 North American collision shops.</span></span>,
+                        Mitchell, or Audatex carries an invisible checklist. <span class="term">P-Pages<span class="term-def">Procedure Pages — the rules embedded in every estimating system that dictate which operations are included in a labor time and which must be written as separate line items.</span></span>
+                        dictate which operations are built into a labor time and which must be written as a manual line — masking, weld-through primer, ceramic coating removal, OEM rivets, final test drive, feather-prime-block on an adjacent panel.
+                        Miss one and you eat the cost. Miss four across a ten-estimate day and you've burned hundreds of dollars of real margin into the floor.
+                    </p>
+                    <p>
+                        The research is not subtle. <strong>Database of Expert Justification</strong> — <span class="term">DEG<span class="term-def">Database of Expert Justification — the industry-standard clearinghouse for inquiries and rulings on what the estimating systems do and don't include by default.</span></span>
+                        — logs thousands of rulings per year clarifying what the systems don't include. Estimators know most of them. They don't have time to check all of them on every file.
+                        Multiply a 15-minute scrub miss by every estimator, every day, every file, and the leak becomes the largest single source of lost revenue the average shop never diagnoses.
+                    </p>
+                    <p>
+                        <strong>Not-included operations are not optional.</strong> They're the documented difference between the estimate you wrote and the estimate a compliance reviewer, an attorney, or an <span class="term">OEM<span class="term-def">Original Equipment Manufacturer — the vehicle manufacturer whose repair procedures govern the job.</span></span>
+                        procedure says you should have written. The shop that scrubs every file recovers the operations the market assumes you'll miss.
+                    </p>
+                    <div class="pullquote">
+                        <div class="pullquote-text">"We found <strong>$340 in not-included ops</strong> on one supplement we were about to submit. If we're missing that on half our files, we're leaving a salary on the floor."</div>
+                        <div class="pullquote-attr">— Estimator, 8-bay MSO, Q4 2025 field interview</div>
+                    </div>
+                </div>
             </div>
-
-            <p>Nobody in your shop is stupid. They're just moving fast. The lines are real. The money is real. It's just invisible until someone goes looking for it.</p>
+            <aside>
+                <div class="side-cost">
+                    <div class="side-cost-label">Estimated leak</div>
+                    <div class="side-cost-num">$7,480 / month</div>
+                    <div class="side-cost-body">Average 8-bay shop, 120 repair orders per month, $62 recovered per file when the scrub catches what the human missed.</div>
+                </div>
+                <div class="side-stat">
+                    <div class="side-stat-num">$62</div>
+                    <div class="side-stat-label">Average not-included recovery per file when a P-Page scrub is run post-draft.</div>
+                    <div class="side-stat-source">Source: DEG + internal shop surveys, 2025</div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 
-<!-- ============ LEAK 2 ============ -->
+<!-- ============ LEAK 2 — E01 TEARDOWN WASTE ============ -->
 <section class="story">
     <div class="container">
-        <div class="story-num">LEAK 02</div>
-        <h2 class="story-title">The car you tore down. That you shouldn't have.</h2>
-        <div class="story-body">
-            <p>Monday morning. An assignment drops in your queue: 2021 BMW X5, front-end collision. Your tech starts the teardown. Four hours in — bumper off, headlights out, core support exposed — the adjuster calls to say the insurer is writing it off.</p>
-
-            <p>It's a <span class="term">total loss<span class="term-def">When the cost to repair a car exceeds a percentage of its actual value. Different states have different thresholds. Insurers write the car off and pay the owner instead of repairing it.</span></span>. You knew it was close. You did the teardown anyway because that's how you've always done it.</p>
-
-            <p>Now you have a torn-apart car, four hours of labor, and an argument ahead about whether you get paid for the teardown. Sometimes you win that argument. Often you don't.</p>
-
-            <div class="pullquote">
-                <div class="pullquote-text">"Nearly 1 in 4 vehicles now become total losses. Most shops don't find out until after they've already started taking them apart."</div>
-                <div class="pullquote-attr">Industry data, late 2025 — total loss frequency hit 22.8%</div>
+        <div class="story-grid">
+            <div>
+                <div class="story-header">
+                    <div class="story-num">Leak 02</div>
+                    <div class="story-kicker">Intake · Capacity</div>
+                </div>
+                <h2 class="story-title">E01 Teardown Waste</h2>
+                <div class="story-body">
+                    <p>
+                        You pull a car in. Your tech spends six hours on <span class="term">teardown<span class="term-def">Disassembly of the vehicle to expose hidden damage and write a full estimate — billable labor, but only if the job proceeds.</span></span>
+                        — bumper off, quarter exposed, rad support pulled, photos uploaded.
+                        The <span class="term">supplement<span class="term-def">An addendum to the original estimate documenting damage discovered after teardown or repair began.</span></span>
+                        goes to the carrier. The carrier runs the numbers against <span class="term">ACV<span class="term-def">Actual Cash Value — the carrier's calculation of the vehicle's pre-loss fair market value, the denominator in the total-loss decision.</span></span>,
+                        crosses the state's <span class="term">E01<span class="term-def">The total-loss threshold — the ratio of repair cost to ACV above which a carrier will total the vehicle instead of authorizing repair. Varies by state, typically 70–80%.</span></span>
+                        threshold, and pushes the file to the total-loss desk. The car leaves your shop on a flatbed.
+                    </p>
+                    <p>
+                        You fought for months and, if you documented correctly, you collected your teardown labor. You also did not get the repair. Your lift sat. Your tech's morning was spent on a job that was never going to close.
+                        <strong>The industry total-loss rate ran 22.8% in Q4 2025.</strong> Roughly one in four cars your intake sees today is not going to stay with you.
+                    </p>
+                    <p>
+                        The failure mode is not that totals happen. It's that they happen <em>after</em> you spend shop hours on the teardown. The winning shops know before they write the repair order.
+                        The losing shops discover it six hours in, the day before you need the bay for a <span class="term">DRP<span class="term-def">Direct Repair Program — a contractual arrangement between a carrier and a shop, with volume in exchange for agreed rate and cycle-time discipline.</span></span>
+                        assignment that's actually going to close.
+                    </p>
+                    <div class="pullquote">
+                        <div class="pullquote-text">"One in four cars we touch is going to total. The question is whether we know on Monday or Thursday."</div>
+                        <div class="pullquote-attr">— Shop owner, 12-bay DRP, Pennsylvania, 2026</div>
+                    </div>
+                </div>
             </div>
-
-            <p>The car's actual cash value is a public number. The repair cost is predictable from the assignment photos. Your state's total-loss threshold is a fixed percentage. The math to determine "this is probably going to total" can be done in under five seconds — before anyone touches the vehicle. But that math currently lives inside a spreadsheet in your estimator's head, and they don't have time to run it on every job.</p>
+            <aside>
+                <div class="side-cost">
+                    <div class="side-cost-label">Estimated leak</div>
+                    <div class="side-cost-num">$28,050 / month</div>
+                    <div class="side-cost-body">Teardown labor consumed on vehicles that total, plus the opportunity cost of the bay hours lost to a non-repairable file.</div>
+                </div>
+                <div class="side-stat">
+                    <div class="side-stat-num">22.8%</div>
+                    <div class="side-stat-label">Industry total-loss rate, Q4 2025. Nearly double the 2015 rate of 12.6%.</div>
+                    <div class="side-stat-source">Source: CCC Crash Course 2025</div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 
-<!-- ============ LEAK 3 ============ -->
+<!-- ============ LEAK 3 — PORTAL TAX ============ -->
 <section class="story">
     <div class="container">
-        <div class="story-num">LEAK 03</div>
-        <h2 class="story-title">The six portals your front office logs into every time a job slips.</h2>
-        <div class="story-body">
-            <p>A repair is running long. Parts delayed. Calibration rescheduled. The <span class="term">estimated completion date<span class="term-def">ECD — the date you told everyone (the insurer, the rental company, the customer) the car would be ready. When it slips, everyone needs to be updated.</span></span> slides four days.</p>
-
-            <p>Now your service advisor is going to spend the next 25 minutes doing this, one portal at a time:</p>
-
-            <p>Log into the rental company's portal to extend the customer's rental. Log into a <em>second</em> rental company's portal because this insurance carrier uses a different one. Log into the insurer's portal to post a delay note with the reason code. Open the estimating software to update the status. Open your text messaging tool to send the customer a heads-up. Then, two days later, when parts arrive — do it all again, in reverse.</p>
-
-            <p>Every single slip. Every single job. And if anyone on your staff forgets one of the six steps, the customer gets a call from the rental company saying their rental's expired — on a car that's still in your shop.</p>
-
-            <div class="stat-inline">
-                <div class="stat-inline-num">25 min</div>
-                <div class="stat-inline-label">per slip × 40 slips/month = 16.7 hours of pure portal-logging labor your front office eats every month.</div>
+        <div class="story-grid">
+            <div>
+                <div class="story-header">
+                    <div class="story-num">Leak 03</div>
+                    <div class="story-kicker">Cycle Time · Labor Overhead</div>
+                </div>
+                <h2 class="story-title">The Portal Tax</h2>
+                <div class="story-body">
+                    <p>
+                        When a job slips — parts delay, ADAS calibration backlog, a sublet that didn't come back clean — your
+                        <span class="term">ECD<span class="term-def">Estimated Completion Date — the promised delivery date tracked in the shop management system and communicated to the carrier and customer.</span></span>
+                        moves. That single event triggers five separate logins. The CSR extends the rental in
+                        <span class="term">ARMS<span class="term-def">Enterprise's Automated Rental Management System — the portal carriers and shops use to authorize, extend, and close rental assignments.</span></span>
+                        or <span class="term">HIRS<span class="term-def">Hertz's Integrated Rental System — the Hertz equivalent of ARMS.</span></span>.
+                        The estimator pastes a delay note into the carrier portal — Geico, State Farm, Progressive, each in a different UI.
+                        Someone texts the customer. Someone updates the internal whiteboard. Each touch is two minutes.
+                        Each touch is a chance to forget one of the five. And the one you forget — usually the rental — is the one that generates the phone call on day 41.
+                    </p>
+                    <p>
+                        The industry calls this the <strong>reconciliation overhead</strong>. On the floor, it's called "I just lost another hour." <span class="term">CRIB 188<span class="term-def">A CCC ONE reporting code used in shop benchmarking to capture administrative cycle-time loss, including portal reconciliation.</span></span>
+                        surveys put it at 11 to 14 hours per estimator per week.
+                        That's not a workflow problem. That's a full day a week your most expensive people are paid to move the same information between five systems that don't talk to each other.
+                    </p>
+                    <p>
+                        <strong>Every extension missed is a rental bill the carrier disputes.</strong> Every delay note skipped is a customer satisfaction score (CSI) that quietly rolls downhill. The portal tax is silent. It does not show up on any P&L line. It lives in the 11 hours of estimator time that were supposed to be spent writing estimates.
+                    </p>
+                    <div class="pullquote">
+                        <div class="pullquote-text">"My estimators are paid to write supplements, not to be data-entry clerks for five insurance companies. But that's half their week."</div>
+                        <div class="pullquote-attr">— GM, 15-bay MSO, New Jersey</div>
+                    </div>
+                </div>
             </div>
+            <aside>
+                <div class="side-cost">
+                    <div class="side-cost-label">Estimated leak</div>
+                    <div class="side-cost-num">$880 / month</div>
+                    <div class="side-cost-body">Loaded labor cost of the 11–14 hours per estimator spent reconciling across portals each week, per seat.</div>
+                </div>
+                <div class="side-stat">
+                    <div class="side-stat-num">11–14 hrs</div>
+                    <div class="side-stat-label">Per estimator, per week, spent logging into external portals to reconcile the same status change.</div>
+                    <div class="side-stat-source">Source: CRIB 188 benchmark + internal surveys</div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 
-<!-- ============ LEAK 4 ============ -->
+<!-- ============ LEAK 4 — SUBLET RECONCILIATION DRAG ============ -->
 <section class="story">
     <div class="container">
-        <div class="story-num">LEAK 04</div>
-        <h2 class="story-title">The calibration invoice that becomes a typing job.</h2>
-        <div class="story-body">
-            <p>A PDF invoice arrives from Precision Diagnostics. Or Elitek. Or AirPro. A <span class="term">sublet<span class="term-def">Any work you outsource to a specialty vendor — typically calibration, glass, alignment, or diagnostics. Common in modern collision repair because you can't do everything in-house.</span></span> invoice for the post-repair <span class="term">ADAS calibration<span class="term-def">Advanced Driver Assistance Systems calibration — recalibrating the cameras, radars, and sensors that handle lane-keeping, automatic braking, and blind-spot detection. Required on most modern cars after collision repair.</span></span> you sent out last week.</p>
-
-            <p>Your estimator opens the PDF. Reads each line. Calculates your allowed markup under the insurance carrier's <span class="term">DRP agreement<span class="term-def">Direct Repair Program — the contract between your shop and an insurance carrier that defines pricing, markups, and process rules for claims that carrier refers to you.</span></span>. Types the line items into the estimating software. Uploads the PDF to the carrier's portal as an attachment. Closes the portal. Moves to the next job.</p>
-
-            <p>Fifteen minutes of pure typing. The PDF contains all the data. Your DRP agreement is a stable document. Your estimator is doing OCR and arithmetic by hand because nothing in the current software does it for them.</p>
-
-            <p>Three to five calibrations per day is normal in 2026. The typing job never ends.</p>
+        <div class="story-grid">
+            <div>
+                <div class="story-header">
+                    <div class="story-num">Leak 04</div>
+                    <div class="story-kicker">Accounts Payable · Markup Capture</div>
+                </div>
+                <h2 class="story-title">The Sublet Reconciliation Drag</h2>
+                <div class="story-body">
+                    <p>
+                        <span class="term">Sublet<span class="term-def">Any operation outsourced to a third-party vendor — ADAS calibrations, diagnostic scans, paintless dent repair, glass — and billed back through the estimate.</span></span>
+                        invoices arrive as PDFs from Elitek, Precision Diagnostics, AirPro, Caliber Calibration. Someone on your team opens the email, reads the PDF, matches the VIN,
+                        calculates the DRP-contract markup, types four to six line items into the supplement, attaches the PDF to the workfile, and closes the ticket. Every job, every vendor, every time.
+                    </p>
+                    <p>
+                        The failure modes are predictable. The calculator gets the markup wrong because this DRP allows 25% and that one caps at 10%. The line items are written under generic labor operation codes instead of the sublet op the carrier expects. The PDF never gets attached and the invoice bounces back from the carrier on audit.
+                        Each one is a $40–$120 correction. Each correction is another 20 minutes. The work gets done. It just gets done twice.
+                    </p>
+                    <p>
+                        The ADAS line is growing fastest. <strong>Roughly 60% of 2025-model-year vehicles require a calibration after a repair that touches a windshield, mirror, or structural component.</strong> That's not a one-off line item anymore. It's a recurring sublet on a rising percentage of your file mix, and it's the single largest markup-capture opportunity most shops are still handling by hand.
+                    </p>
+                    <div class="pullquote">
+                        <div class="pullquote-text">"The markup is right there in the DRP contract. We just can't get to it fast enough on every file when the invoices come in three at a time."</div>
+                        <div class="pullquote-attr">— Production manager, 6-bay independent, Virginia</div>
+                    </div>
+                </div>
+            </div>
+            <aside>
+                <div class="side-cost">
+                    <div class="side-cost-label">Estimated leak</div>
+                    <div class="side-cost-num">$430 / month</div>
+                    <div class="side-cost-body">Missed or under-applied markup on sublet invoices at a shop running 20–30 ADAS calibrations per month.</div>
+                </div>
+                <div class="side-stat">
+                    <div class="side-stat-num">60%</div>
+                    <div class="side-stat-label">Of 2025 model-year vehicles require an ADAS calibration after a covered repair operation.</div>
+                    <div class="side-stat-source">Source: I-CAR + OEM position statements, 2025</div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 
-<!-- ============ LEAK 5 ============ -->
+<!-- ============ LEAK 5 — EV COMPLIANCE LIABILITY ============ -->
 <section class="story">
     <div class="container">
-        <div class="story-num">LEAK 05</div>
-        <h2 class="story-title">The EV sitting in bay three with no paperwork.</h2>
-        <div class="story-body">
-            <p>A plug-in hybrid comes in for a rear-quarter repair. Your tech parks it in bay three and starts the standard workflow.</p>
-
-            <p>They <em>should</em> be doing a high-voltage battery inspection, a lock-out/tag-out procedure, and (if the battery shows damage) a 50-foot quarantine in a dedicated ecology block bay — which costs $85 a day just to rent from the block vendor. They should be filling out a compliance checklist that your insurance carrier can review if anything goes wrong.</p>
-
-            <p>They're not. Because the paperwork isn't in the estimating software. Because nobody handed them a checklist. Because the specific safety steps for a 2024 Ford Escape PHEV are different from a 2023 Tesla Model Y, and they'd have to look them up.</p>
-
-            <div class="pullquote">
-                <div class="pullquote-text">"61 lawsuits against shops in 2024 over sensor calibration and EV safety. In 2018, there were 3."</div>
-                <div class="pullquote-attr">Industry litigation tracking, Q4 2025</div>
+        <div class="story-grid">
+            <div>
+                <div class="story-header">
+                    <div class="story-num">Leak 05</div>
+                    <div class="story-kicker">Risk · Compliance · Billing</div>
+                </div>
+                <h2 class="story-title">EV Compliance Liability</h2>
+                <div class="story-body">
+                    <p>
+                        A <span class="term">PHEV<span class="term-def">Plug-in Hybrid Electric Vehicle — a vehicle with both an internal combustion engine and a high-voltage battery system.</span></span>
+                        or <span class="term">BEV<span class="term-def">Battery Electric Vehicle — a fully electric vehicle with a high-voltage battery pack as its only energy storage.</span></span>
+                        rolls in. The OEM repair procedure requires
+                        <span class="term">HV<span class="term-def">High Voltage — the 200–800V battery system in a hybrid or electric vehicle, which must be isolated and locked out before any structural or body work begins.</span></span>
+                        isolation, lock-out/tag-out, a 50-foot thermal-runaway quarantine zone, and a documented isolation verification. Each step has a signature line.
+                        Each signature line is a liability document if something goes wrong. Every OEM — GM, Ford, Tesla, Rivian, Hyundai, Mercedes — has its own version of the checklist, and they are not the same checklist.
+                    </p>
+                    <p>
+                        Two things are simultaneously true in 2026. One: EV and plug-in hybrid intake is climbing quarter over quarter, and the mix on your floor is no longer a novelty.
+                        Two: <strong>EV-related repair lawsuits rose from 3 in 2018 to 61 in the trailing twelve months</strong> — driven by missed isolation steps, undocumented quarantine periods, and procedures performed without the OEM-specified personal protective equipment.
+                    </p>
+                    <p>
+                        The operational risk is two-headed. On the downside, you miss a step and a tech gets hurt, or the car burns down the shop, or an attorney finds the gap two years later.
+                        On the upside — and this is the part most shops aren't capturing — <strong>every one of those compliance steps is a billable line item</strong>. HV safety labor is a real operation with a real labor time and a real rate.
+                        If your estimator doesn't know to add it, the carrier isn't going to volunteer it. The liability gap and the revenue gap are the same gap, on two different sides of the file.
+                    </p>
+                    <div class="pullquote">
+                        <div class="pullquote-text">"If the documentation isn't in the file, the procedure didn't happen. That's what the adjuster says on a dispute, and that's what a plaintiff's attorney says on a lawsuit."</div>
+                        <div class="pullquote-attr">— Industry compliance advisory, Q1 2026</div>
+                    </div>
+                </div>
             </div>
-
-            <p>The math is simple. EVs are 8% of the repair mix now and rising 2% a year. The safety documentation exists. The OEM procedures exist. Nobody in your shop has time to generate a custom checklist per VIN per intake.</p>
-
-            <p>So the checklist doesn't happen. And the liability compounds.</p>
+            <aside>
+                <div class="side-cost">
+                    <div class="side-cost-label">Estimated leak</div>
+                    <div class="side-cost-num">$280 / EV</div>
+                    <div class="side-cost-body">Average unbilled HV safety and compliance labor per EV / PHEV repair, before any liability exposure.</div>
+                </div>
+                <div class="side-stat">
+                    <div class="side-stat-num">61</div>
+                    <div class="side-stat-label">EV-related collision repair lawsuits in the trailing twelve months. Up from 3 in 2018.</div>
+                    <div class="side-stat-source">Source: Industry legal tracking, 2025</div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
@@ -529,41 +735,34 @@
 <!-- ============ SUMMARY ============ -->
 <section class="summary">
     <div class="container">
-        <h2 class="summary-title">Five leaks. One pattern.</h2>
+        <div class="summary-eyebrow">Add it up</div>
+        <h2 class="summary-title">Five leaks. One operational signature. Roughly $33,000 a month on an average 8-bay shop.</h2>
         <p class="summary-body">
-            Every one of these is a task that has to happen, where the data already exists, where the rules are published — and where nobody on your staff has the bandwidth to handle it consistently. That's not a training problem. That's not a culture problem. It's a <strong>trigger problem</strong>. The next page shows how five agents handle all of it.
+            None of these leaks is new. What's new is that each one is a discrete trigger — an estimate draft, an FNOL photo, an ECD change, a vendor PDF, a VIN decode — that a purpose-built agent can catch the moment it fires.
+            The next page names the five agents that catch them.
         </p>
+        <div class="summary-total">Est. recovery: $33,000 / month / average shop</div>
     </div>
 </section>
 
 <!-- ============ PAGE NAV ============ -->
 <div class="container">
-    <div class="page-nav">
+    <nav class="page-nav">
         <a href="index.html" class="page-nav-link page-nav-prev">
             <div class="page-nav-label">← Back</div>
-            <div class="page-nav-title">Start Over</div>
+            <div class="page-nav-title">Overview</div>
         </a>
         <a href="the-agents.html" class="page-nav-link page-nav-next">
-            <div class="page-nav-label">Page 2 of 5 →</div>
+            <div class="page-nav-label">Next →</div>
             <div class="page-nav-title">The Agents</div>
         </a>
-    </div>
+    </nav>
 </div>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
     <div class="container">
-        <div class="footer-brand">COLLISION INTELLIGENCE</div>
-        <div class="footer-sub">Intersection Strategies LLC · Version 2.0 — April 2026 · Field Edition</div>
-        <div class="footer-links">
-            <a href="index.html">Start Over</a>
-            <a href="the-problem.html">The Problem</a>
-            <a href="the-agents.html">The Agents</a>
-            <a href="the-math.html">The Math</a>
-            <a href="how-it-works.html">How It Works</a>
-            <a href="glossary.html">Glossary</a>
-            <a href="mailto:james@intersection-strategies.com">Contact</a>
-        </div>
+        <p class="footer-text">Collision Intelligence · Intersection Strategies LLC · Version 2.1 — April 2026 · Field Edition</p>
     </div>
 </footer>
 

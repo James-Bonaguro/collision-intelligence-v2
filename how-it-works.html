@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How It Works — Collision Intelligence</title>
-<meta name="description" content="The simple version of what's under the hood — and who built it.">
+<meta name="description" content="Three layers: trigger, routine, output. Claude Code Routines on Anthropic cloud with MCP connectors to CCC Secure Share, Mitchell Transactional API, Audatex OAS3, Enterprise ARMS, Hertz HIRS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -35,274 +35,240 @@
 
     body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 18px;
-        line-height: 1.7;
+        font-size: 17px;
+        line-height: 1.65;
         color: var(--text-primary);
         background: var(--bg-primary);
         -webkit-font-smoothing: antialiased;
     }
+    @media (min-width: 1024px) { body { font-size: 16px; } }
 
-    .container {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    @media (min-width: 1024px) { .container { padding: 0 32px; } }
 
-    /* NAV */
+    /* ============ NAV / PROGRESS (shared) ============ */
     .nav { background: var(--accent-charcoal); padding: 14px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-    .nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     .nav-brand { font-size: 12px; font-weight: 800; letter-spacing: 1.8px; color: white; text-decoration: none; }
-    .nav-glossary { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; min-height: 40px; display: inline-flex; align-items: center; }
+    .nav-glossary { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; padding: 8px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; min-height: 40px; display: inline-flex; align-items: center; }
     .nav-glossary:hover { color: white; border-color: white; }
 
-    /* PROGRESS */
     .progress { background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); padding: 14px 0; }
-    .progress-inner { max-width: 680px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
+    .progress-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
     .progress-track { flex: 1; height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--accent-crimson); border-radius: 2px; }
     .progress-label { font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
 
-    /* HERO */
-    .page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border-light); }
-    .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 18px; }
-    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 24px; }
-    .hero-lede { font-size: 18px; line-height: 1.7; color: var(--text-secondary); }
-    .dropcap { float: left; font-size: 68px; font-weight: 800; line-height: 0.9; padding: 6px 10px 0 0; color: var(--accent-charcoal); }
-    @media (min-width: 768px) {
-        .page-hero { padding: 80px 0 56px; }
+    /* ============ HERO ============ */
+    .page-hero { padding: 56px 0 40px; border-bottom: 1px solid var(--border-light); background: var(--bg-secondary); }
+    .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 18px; }
+    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.12; letter-spacing: -0.022em; color: var(--text-primary); margin-bottom: 22px; max-width: 780px; }
+    .hero-lede { font-size: 18px; line-height: 1.6; color: var(--text-secondary); max-width: 720px; }
+    @media (min-width: 1024px) {
+        .page-hero { padding: 88px 0 64px; }
         .hero-title { font-size: 44px; }
-        .hero-lede { font-size: 20px; }
+        .hero-lede { font-size: 19px; }
     }
 
-    /* SECTION */
-    section { padding: 56px 0; }
-    @media (min-width: 768px) { section { padding: 80px 0; } }
+    /* ============ INLINE TERM DEFINITION ============ */
+    .term { font-style: normal; color: var(--accent-charcoal); font-weight: 600; border-bottom: 1px dotted var(--accent-crimson); cursor: help; position: relative; }
+    .term:hover .term-def, .term:focus-within .term-def { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(-8px); }
+    .term-def { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(0); background: var(--accent-charcoal); color: white; padding: 10px 14px; border-radius: 6px; font-size: 13px; font-weight: 400; font-style: normal; line-height: 1.5; min-width: 240px; max-width: 320px; opacity: 0; visibility: hidden; transition: opacity 0.15s, transform 0.15s, visibility 0.15s; z-index: 50; box-shadow: 0 4px 16px rgba(0,0,0,0.2); letter-spacing: 0; }
+    .term-def::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--accent-charcoal); }
 
-    .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 16px; }
-    .section-title { font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; color: var(--text-primary); margin-bottom: 24px; }
-    .section-body { font-size: 18px; line-height: 1.7; color: var(--text-secondary); }
-    .section-body p + p { margin-top: 18px; }
-    @media (min-width: 768px) { .section-title { font-size: 36px; } }
-
-    /* THREE LAYER DIAGRAM */
-    .diagram-section {
-        background: var(--bg-secondary);
+    .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-crimson); margin-bottom: 14px; }
+    .section-title { font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.018em; color: var(--text-primary); margin-bottom: 14px; max-width: 720px; }
+    .section-lede { font-size: 17px; line-height: 1.65; color: var(--text-secondary); max-width: 720px; margin-bottom: 36px; }
+    @media (min-width: 1024px) {
+        .section-title { font-size: 32px; }
     }
-    .layer-stack {
+
+    /* ============ THREE-LAYER DIAGRAM ============ */
+    .arch { padding: 56px 0; }
+    @media (min-width: 1024px) { .arch { padding: 80px 0; } }
+
+    .layers {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
         margin-top: 32px;
-        display: flex;
-        flex-direction: column;
-        gap: 0;
+    }
+    @media (min-width: 1024px) {
+        .layers {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
     }
     .layer {
         background: white;
-        border: 2px solid var(--border-light);
-        padding: 28px 24px;
+        border: 1px solid var(--border-light);
+        border-top: 4px solid var(--accent-crimson);
+        border-radius: 10px;
+        padding: 26px 22px;
         position: relative;
     }
-    .layer:first-child { border-radius: 12px 12px 0 0; }
-    .layer:last-child { border-radius: 0 0 12px 12px; }
-    .layer + .layer {
-        border-top: none;
-    }
-    .layer-arrow {
-        position: absolute;
-        left: 50%;
-        bottom: -14px;
-        transform: translateX(-50%);
-        width: 28px;
-        height: 28px;
-        background: var(--accent-crimson);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 14px;
-        font-weight: 700;
-        z-index: 2;
-        box-shadow: 0 2px 6px rgba(185,28,28,0.3);
-    }
-    .layer-label {
+    .layer-trigger { border-top-color: var(--accent-crimson); }
+    .layer-routine { border-top-color: var(--accent-charcoal); }
+    .layer-output { border-top-color: var(--accent-emerald); }
+    .layer-num {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
         color: var(--accent-crimson);
         text-transform: uppercase;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
-    .layer-title {
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 10px;
-        line-height: 1.25;
-    }
-    .layer-desc {
-        font-size: 16px;
-        line-height: 1.6;
+    .layer-routine .layer-num { color: var(--accent-charcoal); }
+    .layer-output .layer-num { color: var(--accent-emerald); }
+    .layer-title { font-size: 20px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.015em; margin-bottom: 14px; }
+    .layer-body { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 16px; }
+    .layer-list { list-style: none; }
+    .layer-list li {
+        font-size: 13px;
         color: var(--text-secondary);
+        padding: 6px 0 6px 16px;
+        position: relative;
+        line-height: 1.5;
+        font-family: 'JetBrains Mono', monospace;
     }
-    .layer-examples {
-        margin-top: 16px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+    .layer-list li::before {
+        content: '▸';
+        position: absolute;
+        left: 0;
+        color: var(--accent-crimson);
     }
-    .layer-example {
-        background: var(--bg-tertiary);
-        padding: 6px 12px;
-        border-radius: 4px;
+    .layer-routine .layer-list li::before { color: var(--accent-charcoal); }
+    .layer-output .layer-list li::before { color: var(--accent-emerald); }
+
+    .arch-flow {
+        display: none;
+        text-align: center;
         font-family: 'JetBrains Mono', monospace;
         font-size: 12px;
-        font-weight: 500;
-        color: var(--text-secondary);
+        color: var(--text-muted);
+        margin: 28px 0 0;
+        letter-spacing: 0.5px;
     }
+    @media (min-width: 1024px) { .arch-flow { display: block; } }
 
-    /* ANALOGY BOX */
-    .analogy {
+    /* ============ STACK SECTION ============ */
+    .stack { background: var(--bg-secondary); padding: 56px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+    @media (min-width: 1024px) { .stack { padding: 80px 0; } }
+
+    .stack-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 32px;
+    }
+    @media (min-width: 1024px) {
+        .stack-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+    }
+    .stack-card {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 26px 24px;
+    }
+    .stack-card-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: var(--accent-crimson);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+    .stack-card-title { font-size: 19px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.015em; margin-bottom: 12px; }
+    .stack-card-body { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); }
+    .stack-card-body strong { color: var(--text-primary); font-weight: 700; }
+    .stack-card-body + .stack-card-body { margin-top: 10px; }
+
+    /* ============ ABOUT ============ */
+    .about { padding: 56px 0; }
+    @media (min-width: 1024px) { .about { padding: 80px 0; } }
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+        align-items: start;
+    }
+    @media (min-width: 1024px) {
+        .about-grid {
+            grid-template-columns: 2fr 1fr;
+            gap: 48px;
+        }
+    }
+    .about-body { font-size: 17px; line-height: 1.7; color: var(--text-secondary); }
+    .about-body p + p { margin-top: 14px; }
+    .about-body strong { color: var(--text-primary); }
+    .about-card {
         background: var(--accent-charcoal);
         color: white;
-        padding: 36px 28px;
+        padding: 28px 24px;
         border-radius: 12px;
-        margin-top: 40px;
     }
-    .analogy-label {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.55);
-        margin-bottom: 12px;
-    }
-    .analogy-body {
-        font-size: 18px;
-        line-height: 1.6;
-        color: white;
-    }
-    .analogy-body strong {
-        color: var(--accent-crimson);
-    }
+    .about-card-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 10px; }
+    .about-card-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.015em; }
+    .about-card-role { font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
+    .about-card-list { list-style: none; }
+    .about-card-list li { font-size: 13px; color: rgba(255,255,255,0.8); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.08); line-height: 1.5; }
+    .about-card-list li:last-child { border-bottom: none; }
 
-    /* ABOUT SECTION */
-    .about { background: white; }
-    .about-intro {
-        font-size: 18px;
-        line-height: 1.7;
-        color: var(--text-secondary);
-        margin-bottom: 32px;
-    }
-    .cred-list {
+    /* ============ SECURITY ============ */
+    .security { background: var(--bg-secondary); padding: 56px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+    @media (min-width: 1024px) { .security { padding: 80px 0; } }
+
+    .security-grid {
         display: grid;
+        grid-template-columns: 1fr;
         gap: 16px;
         margin-top: 32px;
     }
-    .cred-item {
-        background: var(--bg-secondary);
-        padding: 20px 22px;
-        border-radius: 10px;
-        border-left: 3px solid var(--accent-charcoal);
-    }
-    .cred-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 6px;
-    }
-    .cred-desc {
-        font-size: 15px;
-        line-height: 1.5;
-        color: var(--text-secondary);
-    }
-
-    /* SECURITY SECTION */
-    .security { background: var(--bg-secondary); }
-    .security-list {
-        margin-top: 32px;
-        display: grid;
-        gap: 14px;
+    @media (min-width: 1024px) {
+        .security-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
     .security-item {
         background: white;
-        padding: 20px 22px;
-        border-radius: 8px;
         border: 1px solid var(--border-light);
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
+        border-radius: 10px;
+        padding: 22px 22px;
     }
-    .security-icon {
-        flex-shrink: 0;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: var(--accent-emerald);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        font-weight: 700;
-    }
-    .security-body { flex: 1; }
-    .security-title {
-        font-size: 15px;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 4px;
-    }
-    .security-desc {
-        font-size: 14px;
-        line-height: 1.5;
-        color: var(--text-secondary);
-    }
+    .security-item-title { font-size: 15px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.01em; }
+    .security-item-body { font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); }
 
-    /* FAQ */
-    .faq { background: white; }
-    .faq-list {
-        margin-top: 32px;
-    }
+    /* ============ FAQ ============ */
+    .faq { padding: 56px 0; }
+    @media (min-width: 1024px) { .faq { padding: 80px 0; } }
     .faq-item {
         border-bottom: 1px solid var(--border-light);
-        padding: 24px 0;
+        padding: 22px 0;
     }
-    .faq-item:first-child { border-top: 1px solid var(--border-light); }
-    .faq-q {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 12px;
-        line-height: 1.3;
-    }
-    .faq-a {
-        font-size: 16px;
-        line-height: 1.65;
-        color: var(--text-secondary);
-    }
+    .faq-item:first-of-type { border-top: 1px solid var(--border-light); }
+    .faq-q { font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.01em; }
+    .faq-a { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
 
-    /* PAGE NAV */
-    .page-nav { padding: 40px 0 56px; display: flex; gap: 12px; }
-    .page-nav-link { flex: 1; min-height: 64px; padding: 18px 20px; border-radius: 10px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background 0.15s, border-color 0.15s; border: 1px solid var(--border-medium); background: white; }
+    /* ============ PAGE NAV / FOOTER ============ */
+    .page-nav { padding: 40px 0 64px; display: flex; gap: 12px; }
+    .page-nav-link { flex: 1; min-height: 64px; padding: 16px 20px; border-radius: 10px; text-decoration: none; display: flex; flex-direction: column; justify-content: center; transition: background 0.15s, border-color 0.15s; border: 1px solid var(--border-medium); background: white; }
     .page-nav-prev { text-align: left; color: var(--text-secondary); }
     .page-nav-prev:hover { border-color: var(--accent-charcoal); }
     .page-nav-next { background: var(--accent-charcoal); color: white; text-align: right; border-color: var(--accent-charcoal); }
     .page-nav-next:hover { background: #0f1218; }
-    .page-nav-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 4px; }
-    .page-nav-title { font-size: 15px; font-weight: 700; line-height: 1.3; }
-    @media (min-width: 640px) { .page-nav-title { font-size: 16px; } }
+    .page-nav-label { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; opacity: 0.6; margin-bottom: 3px; }
+    .page-nav-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
 
-    /* FOOTER */
-    .footer { background: var(--accent-charcoal); color: var(--text-inverse); padding: 40px 0; }
-    .footer-brand { font-size: 13px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 10px; }
-    .footer-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
-    .footer-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; padding: 8px 0; min-height: 40px; display: inline-flex; align-items: center; }
-    .footer-links a:hover { color: white; }
+    .footer { background: var(--bg-secondary); padding: 32px 0; border-top: 1px solid var(--border-light); text-align: center; }
+    .footer-text { font-size: 12px; color: var(--text-muted); letter-spacing: 0.3px; }
 </style>
 </head>
 <body>
 
+<!-- ============ NAV ============ -->
 <nav class="nav">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">COLLISION INTELLIGENCE</a>
@@ -310,180 +276,223 @@
     </div>
 </nav>
 
+<!-- ============ PROGRESS ============ -->
 <div class="progress">
     <div class="progress-inner">
-        <div class="progress-track"><div class="progress-fill" style="width: 80%"></div></div>
-        <div class="progress-label">Page 4 of 5</div>
+        <div class="progress-track"><div class="progress-fill" style="width: 80%;"></div></div>
+        <div class="progress-label">Page 4 of 5 · How It Works</div>
     </div>
 </div>
 
-<!-- HERO -->
-<header class="page-hero">
+<!-- ============ HERO ============ -->
+<section class="page-hero">
     <div class="container">
         <div class="hero-eyebrow">How It Works</div>
-        <h1 class="hero-title">The simple version of what's under the hood.</h1>
+        <h1 class="hero-title">Trigger. Routine. Output. The Same Shape Under Every Agent.</h1>
         <p class="hero-lede">
-            <span class="dropcap">Y</span>ou don't need to understand how any of this works to use it. But you might want to — if only so you can explain it to your partner, your lender, or your insurance rep when they ask. Here's the whole thing in three sections, one page.
+            This page names the machinery. It runs on
+            <span class="term">Claude Code Routines<span class="term-def">Anthropic's platform for scheduled, API-triggered, and webhook-triggered agent workflows. Runs on Anthropic's cloud infrastructure with built-in security and audit logging.</span></span>
+            inside Anthropic's cloud, wired to your shop's systems through
+            <span class="term">MCP<span class="term-def">Model Context Protocol — Anthropic's open standard for connecting language models to real tools and data sources. The plumbing that lets an agent talk to CCC, Mitchell, ARMS, and anything else.</span></span>
+            connectors. You don't install anything. You don't run anything. You don't maintain anything.
         </p>
     </div>
-</header>
+</section>
 
-<!-- THREE LAYER DIAGRAM -->
-<section class="diagram-section">
+<!-- ============ ARCH DIAGRAM ============ -->
+<section class="arch">
     <div class="container">
-        <div class="section-eyebrow">The machinery</div>
-        <h2 class="section-title">Three layers. That's it.</h2>
-        <p class="section-body">Every agent works the same way. Something happens in your shop. An AI reads it and decides what to do. The decision shows up somewhere you can see.</p>
+        <div class="section-eyebrow">The Three Layers</div>
+        <h2 class="section-title">Every agent is a trigger layer, a routine layer, and an output layer.</h2>
+        <p class="section-lede">
+            The shape doesn't change between agents — only the inputs and outputs do. This makes the fleet composable: one agent's output can become another agent's trigger. It also makes it maintainable: fixes happen at the layer they belong to, not scattered across a monolith.
+        </p>
 
-        <div class="layer-stack">
-            <div class="layer">
-                <div class="layer-label">Layer 1 · The Trigger</div>
-                <h3 class="layer-title">Something happens in your shop.</h3>
-                <p class="layer-desc">A new estimate is saved. A sublet invoice lands in email. A completion date changes. A VIN is decoded as an EV. These are real events that already happen — we just listen for them.</p>
-                <div class="layer-examples">
-                    <span class="layer-example">estimate_saved</span>
-                    <span class="layer-example">email_received</span>
-                    <span class="layer-example">ecd_changed</span>
-                    <span class="layer-example">vin_decoded</span>
-                </div>
-                <div class="layer-arrow">↓</div>
+        <div class="layers">
+            <div class="layer layer-trigger">
+                <div class="layer-num">Layer 01</div>
+                <h3 class="layer-title">Trigger</h3>
+                <p class="layer-body">A real shop event fires. The routine listens via webhook, scheduled cron, or direct API poll — whichever the source system supports cleanly.</p>
+                <ul class="layer-list">
+                    <li>CCC Secure Share webhook</li>
+                    <li>Mitchell Transactional API</li>
+                    <li>Audatex / Solera OAS3</li>
+                    <li>Email inbound (IMAP/webhook)</li>
+                    <li>Scheduled cron (hourly, daily)</li>
+                </ul>
             </div>
-            <div class="layer">
-                <div class="layer-label">Layer 2 · The Agent</div>
-                <h3 class="layer-title">An AI reads the event and decides what to do.</h3>
-                <p class="layer-desc">The agent is an instance of Claude — Anthropic's AI model, the one behind Claude Code. It receives the event, pulls relevant data (your DRP rules, the vehicle's value, the official labor-time rules), and decides on an action. Think of it as a very fast, very thorough service advisor who has read every manual.</p>
-                <div class="layer-examples">
-                    <span class="layer-example">pull DRP agreement</span>
-                    <span class="layer-example">query P-Pages</span>
-                    <span class="layer-example">calculate markup</span>
-                    <span class="layer-example">draft action</span>
-                </div>
-                <div class="layer-arrow">↓</div>
+            <div class="layer layer-routine">
+                <div class="layer-num">Layer 02</div>
+                <h3 class="layer-title">Routine</h3>
+                <p class="layer-body">Claude Code Routine runs on Anthropic's cloud. Opens the right MCP connectors, reads the context, applies the logic specific to that agent, writes back via the same connectors.</p>
+                <ul class="layer-list">
+                    <li>Claude Sonnet 4.x reasoning</li>
+                    <li>MCP tool invocation</li>
+                    <li>Your shop's DRP profile</li>
+                    <li>Audit log per fire</li>
+                    <li>Silent-mode toggle</li>
+                </ul>
             </div>
-            <div class="layer">
-                <div class="layer-label">Layer 3 · The Output</div>
-                <h3 class="layer-title">The decision shows up where you can see it.</h3>
-                <p class="layer-desc">The agent doesn't work in secret. Every action shows up somewhere visible: a Slack message, a line added to an estimate, a text to a customer, a note in your insurer portal. You see it. You can review it. You can undo it.</p>
-                <div class="layer-examples">
-                    <span class="layer-example">slack notification</span>
-                    <span class="layer-example">estimate line added</span>
-                    <span class="layer-example">SMS to customer</span>
-                    <span class="layer-example">portal note</span>
-                </div>
+            <div class="layer layer-output">
+                <div class="layer-num">Layer 03</div>
+                <h3 class="layer-title">Output</h3>
+                <p class="layer-body">The result lands where it's useful — inside the workfile, inside the portal, inside your Slack or inbox. The shop never opens a new tool.</p>
+                <ul class="layer-list">
+                    <li>Workfile line items (write)</li>
+                    <li>Carrier portal notes (post)</li>
+                    <li>Slack / email digest</li>
+                    <li>Customer SMS</li>
+                    <li>Monthly ops report</li>
+                </ul>
             </div>
         </div>
 
-        <div class="analogy">
-            <div class="analogy-label">Plain-English analogy</div>
-            <div class="analogy-body">
-                Think of the agent as a <strong>very senior service advisor</strong> who never sleeps, has read every P-Page, memorized every DRP agreement, and responds to every event in your shop within seconds — but can only do things you already explicitly authorized them to do.
+        <div class="arch-flow">TRIGGER  →  ROUTINE  →  OUTPUT</div>
+    </div>
+</section>
+
+<!-- ============ STACK SECTION ============ -->
+<section class="stack">
+    <div class="container">
+        <div class="section-eyebrow">The Integrations</div>
+        <h2 class="section-title">The systems it speaks to — natively.</h2>
+        <p class="section-lede">
+            Every API below is a published, vendor-supported integration. Nothing is scraped. Nothing is screen-read. Nothing is stored client-side.
+        </p>
+
+        <div class="stack-grid">
+            <div class="stack-card">
+                <div class="stack-card-label">Estimating + Workfile</div>
+                <h3 class="stack-card-title">CCC Secure Share · Mitchell Transactional API · Audatex/Solera OAS3</h3>
+                <p class="stack-card-body">The three SMS/estimating platforms covering essentially every North American collision shop. Agents read workfiles, write line items, attach PDFs, and subscribe to status-change webhooks through the official developer APIs.</p>
+                <p class="stack-card-body"><strong>Endpoints used:</strong> workfile.get · estimate.write · imageattachment.post · status.subscribe</p>
+            </div>
+
+            <div class="stack-card">
+                <div class="stack-card-label">Rental Authorization</div>
+                <h3 class="stack-card-title">Enterprise ARMS · Hertz HIRS</h3>
+                <p class="stack-card-body">Both rental portals expose authenticated extension endpoints. Agent 03 pulls the active authorization on ECD change and extends to the new delivery date with the correct delay reason code, without human login.</p>
+                <p class="stack-card-body"><strong>Authentication:</strong> credential vault with per-shop scoping · audit log per extension</p>
+            </div>
+
+            <div class="stack-card">
+                <div class="stack-card-label">Carrier Claims</div>
+                <h3 class="stack-card-title">State Farm Select · GEICO ARX · Allstate Good Hands Repair Network</h3>
+                <p class="stack-card-body">Most carrier portals accept structured notes and status updates via CCC/Mitchell pass-through. Where a carrier requires a direct portal note, the agent authenticates through the shop's existing credential and posts with the right reason code.</p>
+                <p class="stack-card-body"><strong>Coverage:</strong> top ten US personal-lines carriers by DRP volume</p>
+            </div>
+
+            <div class="stack-card">
+                <div class="stack-card-label">OEM + VIN Intelligence</div>
+                <h3 class="stack-card-title">VIN decode services · OEM position-statement libraries · I-CAR RTS</h3>
+                <p class="stack-card-body">Agent 05 cross-references VIN decode against OEM-specific HV safety position statements and I-CAR Repairability Technical Support data to build the compliance checklist for each specific make/model.</p>
+                <p class="stack-card-body"><strong>Coverage:</strong> all major EV/PHEV platforms through 2026 model year</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ============ ABOUT ============ -->
 <section class="about">
     <div class="container">
-        <div class="section-eyebrow">Who built this</div>
-        <h2 class="section-title">James Bonaguro. Intersection Strategies LLC.</h2>
-        <p class="about-intro">
-            Self-taught builder. Founder of Intersection Strategies. The reason this works for collision shops specifically — rather than being another generic AI consultancy — is that my background is already sitting inside the industry.
-        </p>
-
-        <div class="cred-list">
-            <div class="cred-item">
-                <div class="cred-title">CCC Intelligent Solutions — Go-to-Market Strategy</div>
-                <div class="cred-desc">Worked inside the company that most of your estimating software comes from. Know how the data flows, know the DRP contracts, know what the insurers actually look at when they approve or reject a line.</div>
+        <div class="section-eyebrow">Who Builds It</div>
+        <h2 class="section-title">One operator. Known domain. Managed service.</h2>
+        <div class="about-grid">
+            <div class="about-body">
+                <p>
+                    Intersection Strategies LLC is a single-operator shop. I configure, monitor, and maintain the fleet on your behalf. You get one phone number to call when something fires wrong, and one face across every quarterly review.
+                </p>
+                <p>
+                    The domain background matters: I came up through CCC's go-to-market org and a dealership family. I've walked collision floors, read carrier audits, and watched DRP relationships get renegotiated in real time. I'm not a generalist applying AI to a vertical I met on a sales call.
+                </p>
+                <p>
+                    <strong>What that means for you:</strong> when a carrier changes its portal workflow or a new OEM position statement drops, you don't have to notice. I do.
+                </p>
             </div>
-            <div class="cred-item">
-                <div class="cred-title">Family-Owned Mercedes-Benz Dealerships</div>
-                <div class="cred-desc">Grew up in the industry. Understand what an owner cares about, what a service manager fights about, what a tech actually needs. Not a consultant who learned the words last quarter.</div>
-            </div>
-            <div class="cred-item">
-                <div class="cred-title">SullivanCotter — Healthcare Compensation Analytics</div>
-                <div class="cred-desc">Before CCC, spent years doing analytics for highly-regulated healthcare operations. Built the habit of getting audited numbers right the first time. Same habit applies here.</div>
-            </div>
-            <div class="cred-item">
-                <div class="cred-title">AI Systems Design — Anthropic Claude Platform</div>
-                <div class="cred-desc">Currently specialized in building custom agent systems on Claude's platform. This hub exists because Anthropic dropped a new product called "Routines" the same week I was researching how to solve these specific shop problems. Convergence.</div>
+            <div class="about-card">
+                <div class="about-card-eyebrow">Operator</div>
+                <div class="about-card-name">James Bonaguro</div>
+                <div class="about-card-role">Founder, Intersection Strategies LLC</div>
+                <ul class="about-card-list">
+                    <li>CCC go-to-market background</li>
+                    <li>Dealership family (MB / multi-line)</li>
+                    <li>Claude Code Routines · MCP builder</li>
+                    <li>Based in Northeast US · on-site available</li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
 
-<!-- SECURITY -->
+<!-- ============ SECURITY ============ -->
 <section class="security">
     <div class="container">
-        <div class="section-eyebrow">Trust &amp; Security</div>
-        <h2 class="section-title">What the agent can and can't see.</h2>
-        <p class="section-body">Fair question. Here's the honest answer, no asterisks.</p>
+        <div class="section-eyebrow">Security &amp; Posture</div>
+        <h2 class="section-title">What's on your network. What isn't. Where data lives.</h2>
 
-        <div class="security-list">
+        <div class="security-grid">
             <div class="security-item">
-                <div class="security-icon">✓</div>
-                <div class="security-body">
-                    <div class="security-title">Your customer data stays inside your existing software</div>
-                    <div class="security-desc">The agent reads events from your estimating software the same way any integration does — through authorized APIs. Nothing is copied to our servers permanently.</div>
-                </div>
+                <div class="security-item-title">Nothing runs on your network</div>
+                <p class="security-item-body">All routines run on Anthropic's cloud infrastructure. No agent software is installed on shop workstations, servers, or the SMS host. Nothing to patch, nothing to license at the shop level.</p>
             </div>
             <div class="security-item">
-                <div class="security-icon">✓</div>
-                <div class="security-body">
-                    <div class="security-title">You can review every action taken</div>
-                    <div class="security-desc">Every line the agent adds, every text it sends, every portal note it posts — there's an audit log. You or your manager can see exactly what happened and when.</div>
-                </div>
+                <div class="security-item-title">Credentials held in vault</div>
+                <p class="security-item-body">API keys and portal credentials are stored per-shop in an encrypted vault with scoped access. Credentials are never stored in model context, never logged in plaintext, and are rotatable on demand.</p>
             </div>
             <div class="security-item">
-                <div class="security-icon">✓</div>
-                <div class="security-body">
-                    <div class="security-title">You can kill the agent in one click</div>
-                    <div class="security-desc">Something goes wrong, something doesn't feel right — there's a pause button. The agent stops immediately. No contracts, no tickets.</div>
-                </div>
+                <div class="security-item-title">Data minimization</div>
+                <p class="security-item-body">Agents read only the fields required for the decision. VINs, line items, and timestamps — yes. Customer PII beyond phone number (where needed for SMS) — not retained.</p>
             </div>
             <div class="security-item">
-                <div class="security-icon">✓</div>
-                <div class="security-body">
-                    <div class="security-title">No training on your data</div>
-                    <div class="security-desc">Your shop's data is not used to train any AI model. Not ours, not Anthropic's, not anyone's. Standard enterprise-grade data handling.</div>
-                </div>
+                <div class="security-item-title">Full audit log</div>
+                <p class="security-item-body">Every fire is logged with timestamp, input payload, routine reasoning trace, and output written. Reviewable per-incident or per-month in the ops report.</p>
+            </div>
+            <div class="security-item">
+                <div class="security-item-title">Silent-mode default</div>
+                <p class="security-item-body">New agents start in silent mode — observing only, never writing to your workfile or portals. Promotion to write mode is a deliberate, per-agent decision you control.</p>
+            </div>
+            <div class="security-item">
+                <div class="security-item-title">Shop-scoped isolation</div>
+                <p class="security-item-body">Your shop's data, DRP profiles, fire logs, and vault never mingle with any other shop's context. A routine running for your shop cannot see anyone else's workfiles, ever.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FAQ -->
+<!-- ============ FAQ ============ -->
 <section class="faq">
     <div class="container">
-        <div class="section-eyebrow">Common questions</div>
-        <h2 class="section-title">What shop owners usually ask first.</h2>
+        <div class="section-eyebrow">Common Questions</div>
+        <h2 class="section-title">What shops ask first.</h2>
 
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-q">Do I have to replace my estimating software?</div>
-                <div class="faq-a">No. The agent works with whatever you're using — CCC ONE, Mitchell, Audatex. It reads the data, it doesn't replace the tool. Your estimators keep doing their jobs the same way.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">What if my staff doesn't want to use it?</div>
-                <div class="faq-a">They don't have to "use" anything. The agent acts in the background. Your estimator sees a notification, glances, moves on. That's the interaction. No software to learn, no buttons to click.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">What happens if the agent gets something wrong?</div>
-                <div class="faq-a">In the first four weeks, the agent runs in "shadow mode" — every action is a suggestion your estimator approves. We use those four weeks to tune it. Once it's live, every action is logged and reversible. If it makes a mistake, we see it, we fix it, we refine the agent.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">What about my DRP agreements? Can the agent really read them?</div>
-                <div class="faq-a">Yes. We upload your contracts during Week 1 setup and the agent queries them in real-time. If a carrier changes their DRP terms, you update the document and the agent picks it up automatically.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">Is this compliant with how insurers want me to operate?</div>
-                <div class="faq-a">Every action the agent takes is something your staff would be doing anyway if they had infinite time. Adding P-Page lines with citations is standard practice. Extending rentals through ARMS is standard practice. The agent just does it faster and more consistently. If anything, insurer audits get cleaner because there's a perfect log.</div>
-            </div>
+        <div class="faq-item">
+            <div class="faq-q">Do I have to change how my estimators work?</div>
+            <p class="faq-a">No. Agents write into the workfile you already use. Your estimator opens the same draft, sees the missing lines filled with citations, and keeps writing. No new tool, no login, no screen to monitor.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">What happens when the model makes a mistake?</div>
+            <p class="faq-a">Every write is auditable. Silent mode exists for exactly this reason — we observe the agent's calls for 30 days before it ever touches a live workfile. When the agent is wrong, the fire log shows why, and I tune it against your actual data.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">What if CCC or Mitchell changes their API?</div>
+            <p class="faq-a">That's on me. API surface changes are normal and I maintain the MCP connectors against them. If a breaking change affects your fleet, you get notified, not billed extra.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Do you store my estimate data?</div>
+            <p class="faq-a">Only what's needed to produce the ops report — fire counts, captured-dollar totals, anonymized line-item categories. Full workfile contents are processed in-context and not retained beyond the fire window.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Can I cancel?</div>
+            <p class="faq-a">Single-Agent and Stack tiers are month-to-month. The 90-day pilot has a clean exit after day 90. No lock-in, no annual commitment unless you want the term discount.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Why shouldn't I just wait for CCC to build this?</div>
+            <p class="faq-a">Honest answer: you might. But the carriers who lose on E01 teardown disputes every week don't benefit from platform vendors building margin-recovery tooling. The platforms are neutral; the agents are on your side. That structural difference is what makes the trigger the product.</p>
         </div>
     </div>
 </section>
 
-<!-- PAGE NAV -->
+<!-- ============ PAGE NAV ============ -->
 <div class="container">
     <div class="page-nav">
         <a href="the-math.html" class="page-nav-link page-nav-prev">
@@ -491,26 +500,16 @@
             <div class="page-nav-title">The Math</div>
         </a>
         <a href="glossary.html" class="page-nav-link page-nav-next">
-            <div class="page-nav-label">Page 5 of 5 →</div>
+            <div class="page-nav-label">Next →</div>
             <div class="page-nav-title">Glossary</div>
         </a>
     </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ============ FOOTER ============ -->
 <footer class="footer">
     <div class="container">
-        <div class="footer-brand">COLLISION INTELLIGENCE</div>
-        <div class="footer-sub">Intersection Strategies LLC · Version 2.0 — April 2026 · Field Edition</div>
-        <div class="footer-links">
-            <a href="index.html">Start Over</a>
-            <a href="the-problem.html">The Problem</a>
-            <a href="the-agents.html">The Agents</a>
-            <a href="the-math.html">The Math</a>
-            <a href="how-it-works.html">How It Works</a>
-            <a href="glossary.html">Glossary</a>
-            <a href="mailto:james@intersection-strategies.com">Contact</a>
-        </div>
+        <div class="footer-text">Intersection Strategies LLC · Collision Intelligence · Version 2.1 — April 2026 · Field Edition</div>
     </div>
 </footer>
 
