@@ -44,7 +44,13 @@
     .nav { background: var(--accent-charcoal); padding: 14px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     .nav-brand { font-size: 12px; font-weight: 800; letter-spacing: 1.8px; color: white; text-decoration: none; }
-    .nav-glossary { font-size: 13px; font-weight: 500; color: white; text-decoration: none; padding: 8px 14px; border: 1px solid white; border-radius: 6px; min-height: 40px; display: inline-flex; align-items: center; }
+    .nav-pages { display: flex; align-items: center; gap: 2px; }
+    .nav-page { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; padding: 6px 10px; border-radius: 4px; letter-spacing: 0.2px; transition: color 0.15s; white-space: nowrap; }
+    .nav-page:hover { color: rgba(255,255,255,0.9); }
+    .nav-page-active { color: white; background: rgba(255,255,255,0.12); }
+    @media (max-width: 860px) { .nav-pages { display: none; } }
+    .page-nav-center { flex: 0 0 auto; min-width: 110px; text-align: center; color: var(--text-muted); }
+    .page-nav-center:hover { border-color: var(--border-strong); color: var(--text-primary); }
 
     .progress { background: var(--bg-secondary); border-bottom: 1px solid var(--border-light); padding: 14px 0; }
     .progress-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
@@ -160,7 +166,13 @@
 <nav class="nav">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">COLLISION INTELLIGENCE</a>
-        <a href="glossary.html" class="nav-glossary">Glossary</a>
+        <div class="nav-pages">
+            <a href="the-problem.html" class="nav-page">1 · The Problem</a>
+            <a href="the-agents.html" class="nav-page">2 · The Agents</a>
+            <a href="how-it-works.html" class="nav-page">3 · How It Works</a>
+            <a href="the-math.html" class="nav-page">4 · The Numbers</a>
+            <a href="glossary.html" class="nav-page nav-page-active">5 · Glossary</a>
+        </div>
     </div>
 </nav>
 
@@ -554,13 +566,17 @@
 <!-- PAGE NAV -->
 <div class="container">
     <div class="page-nav">
-        <a href="how-it-works.html" class="page-nav-link page-nav-prev">
+        <a href="the-math.html" class="page-nav-link page-nav-prev">
             <div class="page-nav-label">← Previous</div>
-            <div class="page-nav-title">How It Works</div>
+            <div class="page-nav-title">The Numbers</div>
+        </a>
+        <a href="index.html" class="page-nav-link page-nav-center">
+            <div class="page-nav-label">·&nbsp;&nbsp;·&nbsp;&nbsp;·</div>
+            <div class="page-nav-title">Contents</div>
         </a>
         <a href="index.html" class="page-nav-link page-nav-next">
-            <div class="page-nav-label">Next →</div>
-            <div class="page-nav-title">Back to the Overview</div>
+            <div class="page-nav-label">↑ Done</div>
+            <div class="page-nav-title">Back to Overview</div>
         </a>
     </div>
 </div>
