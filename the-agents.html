@@ -550,12 +550,12 @@
                     <p>
                         The moment an assignment lands — or FNOL photos arrive with it — the agent estimates
                         <span class="term">ACV<span class="term-def">Actual Cash Value — the pre-loss market value of the vehicle. At intake the agent estimates this from the VIN using current NADA/KBB data; the carrier adjuster confirms the final figure later.</span></span>
-                        from the VIN using current NADA/KBB market data, runs a severity prediction against the damage pattern, and compares projected repair cost to the state's
+                        from the VIN using NADA/KBB data, runs a severity prediction against the damage pattern, and compares projected repair cost to the state's
                         <span class="term">E01<span class="term-def">The dollar threshold at which a vehicle is declared a total loss. Varies by state (typically 70–80% of ACV). Crossing it ends the repair and starts the settlement.</span></span>
                         threshold. If the answer is "this one totals," it says so in writing — before anyone touches a bolt.
                     </p>
                     <p>
-                        Second job: if teardown does proceed, the agent generates a pre-filled teardown labor line sheet with full procedural citations, so the carrier cannot argue the hours away when the car goes total three days later. The
+                        Second job: if teardown does proceed, the agent delivers pre-filled teardown labor lines with full procedural citations — ready for the estimator to drop into the workfile — so the carrier cannot argue the hours away when the car goes total three days later. The
                         <span class="term">CRIB 188<span class="term-def">CCC's Collision Repair Industry Bulletin #188 — the industry-recognized reference defining teardown as a billable diagnostic operation separate from repair labor.</span></span>
                         citation is included automatically.
                     </p>
@@ -567,7 +567,7 @@
                     <div class="agent-meta">
                         <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">Assignment drop or FNOL upload</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">CCC Secure Share · Mitchell API</span></div>
-                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Estimate · Slack · ops report</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Delivers</span><span class="agent-meta-val">Teardown lines · Slack · ops report</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$28,050 / avg shop</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Why it leads</span><span class="agent-meta-val">Largest recoverable pool</span></div>
                     </div>
@@ -587,7 +587,7 @@
                 <span class="trig-label">Trigger</span>
                 <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">ECD.updated</span> <span class="trig-comment">// workfile delivery-date change</span></span>
                 <span class="trig-line"><span class="trig-key">if</span> <span class="trig-val">new_ECD &gt; rental_auth_end</span></span>
-                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">ARMS.extend → HIRS.extend → portal.note → sms.customer</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">draft_ARMS_ext → draft_HIRS_ext → draft_portal_note → send_sms</span></span>
             </div>
 
             <div class="agent-grid">
@@ -602,7 +602,7 @@
                     <p>
                         The agent fires the instant the
                         <span class="term">ECD<span class="term-def">Estimated Completion Date — the live delivery promise inside the shop management system. When it slips, every downstream notification obligation slips with it.</span></span>
-                        in the workfile changes. It extends the rental, posts the portal note with the delay code, and sends a customer-facing SMS that reads like your front-office manager wrote it. One event, four updates, zero staff minutes.
+                        in the workfile changes. It drafts the ARMS or HIRS extension with delay code and new return date, prepares the carrier delay note with the right reason code, and sends the customer-facing SMS directly. The portal drafts sit in a one-click approve queue for the front office; the text goes out on its own. One event, four updates, a few seconds of human touch.
                     </p>
                     <p>
                         <strong>Why shops care:</strong> the portal tax is real. The average 12-bay shop loses 40+ hours a month to status-sync busywork. This agent zeros it.
@@ -612,7 +612,7 @@
                     <div class="agent-meta">
                         <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">ECD change in SMS</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">ARMS · HIRS · carrier portal · SMS</span></div>
-                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Rental auth · portal note · customer text</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Delivers</span><span class="agent-meta-val">Rental extension draft · portal note draft · customer text (sent)</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$883 / avg shop (labor recapture)</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Secondary</span><span class="agent-meta-val">CSI lift · rental-day credibility</span></div>
                     </div>
@@ -631,7 +631,7 @@
             <div class="trigger-block">
                 <span class="trig-label">Trigger</span>
                 <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">estimate.saved</span> <span class="trig-comment">// draft or supplement</span></span>
-                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">parse_ops → cross_ref(PPages, DEG, OEM) → push_missing_lines</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">parse_ops → cross_ref(PPages, DEG, OEM) → flag_missing_lines</span></span>
             </div>
 
             <div class="agent-grid">
@@ -646,7 +646,7 @@
                     <p>
                         The agent fires when an estimator saves a draft. It parses every op, cross-references the live P-Page rules plus
                         <span class="term">DEG<span class="term-def">Database of Expert Justification — the industry clearinghouse for inquiries and rulings on what the estimating systems do and don't include by default.</span></span>
-                        rulings plus OEM position statements, and pushes the missing manual lines back into the workfile with citations already attached. The estimator opens their own draft and sees the gaps filled.
+                        rulings plus OEM position statements, and produces a missing-line report with citations already attached — every gap flagged with the exact reference. The estimator opens the report next to their draft and applies the lines in seconds.
                     </p>
                     <p>
                         <strong>Why it works:</strong> this is not a knowledge problem. It's an attention problem. The agent has infinite attention on every file. Your estimator gets to keep thinking about the repair.
@@ -656,7 +656,7 @@
                     <div class="agent-meta">
                         <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">Estimate or supplement save</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">CCC Secure Share · Mitchell API</span></div>
-                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Workfile lines + justification notes</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Delivers</span><span class="agent-meta-val">Missing-line report with citations</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$7,480 / avg shop</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Kills</span><span class="agent-meta-val">Missed not-included operations</span></div>
                     </div>
@@ -670,12 +670,12 @@
                 <div class="agent-num">Agent 02</div>
             </div>
             <h2 class="agent-title">Sublet Invoice &amp; Markup Reconciler</h2>
-            <p class="agent-pitch">"Every sublet PDF that hits the inbox — I read it, apply your DRP markup, post the line items, and attach the invoice to the workfile."</p>
+            <p class="agent-pitch">"Every sublet PDF that hits the inbox — I read it, apply your DRP markup, prep the line items, and attach the invoice to the workfile."</p>
 
             <div class="trigger-block">
                 <span class="trig-label">Trigger</span>
                 <span class="trig-line"><span class="trig-key">on</span> <span class="trig-val">email.received</span> <span class="trig-comment">// from Elitek, AirPro, Precision, etc.</span></span>
-                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">ocr_invoice → match_VIN → apply_DRP_markup → post_lines → attach_PDF</span></span>
+                <span class="trig-line"><span class="trig-key">then</span> <span class="trig-val">ocr_invoice → match_VIN → apply_DRP_markup → prepare_lines → attach_PDF</span></span>
             </div>
 
             <div class="agent-grid">
@@ -687,7 +687,7 @@
                         markup, posts the line items, and uploads the PDF to the portal. Every job. Twice a day on a busy shop.
                     </p>
                     <p>
-                        The agent does all of it on email arrival. OCR reads the invoice, VIN matches it to the workfile, the DRP profile determines the allowed markup, the line items post, and the PDF attaches via the platform's ImageAttachment API. The first time the estimator sees the invoice, the work is already done.
+                        The agent does all of it on email arrival. OCR reads the invoice, VIN matches it to the workfile, the DRP profile determines the allowed markup, and the line items are prepared with the marked-up math. The PDF attaches directly via the platform's ImageAttachment API; the estimator applies the pre-built line set with one click.
                     </p>
                     <p>
                         <strong>Edge win:</strong> the markup math is never wrong and never forgotten. Every dollar of allowable margin gets captured.
@@ -697,7 +697,7 @@
                     <div class="agent-meta">
                         <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">Email with invoice PDF</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">Mail webhook · OCR · ImageAttachment API</span></div>
-                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Workfile lines · PDF attachment</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Delivers</span><span class="agent-meta-val">Marked-up line set · PDF attachment (posted)</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$430 / avg shop</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Hidden upside</span><span class="agent-meta-val">Zero markup-math errors</span></div>
                     </div>
@@ -728,7 +728,7 @@
                         decode flags an EV, a cascade of documentation requirements wakes up: HV isolation procedure, lock-out/tag-out record, 50-foot thermal quarantine log, OEM-specific battery-state attestation, PPE sign-offs. The regulatory and liability stakes are real — and carriers are increasingly disputing EV jobs that don't have clean compliance trails.
                     </p>
                     <p>
-                        The agent fires on VIN decode at intake. It pushes the complete compliance checklist to the tech's mobile device with OEM-specific steps, adds the HV safety labor lines to the estimate with full citation, and logs the quarantine placement timestamp. The tech taps through steps; the estimate accrues the billable compliance operations automatically.
+                        The agent fires on VIN decode at intake. It pushes the complete compliance checklist to the tech's mobile device with OEM-specific steps, prepares the HV safety labor lines with full citations, and logs the quarantine placement timestamp. The tech taps through each step; the compliance line set waits in the estimator for one-click apply.
                     </p>
                     <p>
                         <strong>Why it matters now:</strong> 61 documented EV compliance lawsuits against shops through Q4 2025. Every BEV/PHEV that enters without a paper trail is a liability event waiting to close.
@@ -738,7 +738,7 @@
                     <div class="agent-meta">
                         <div class="agent-meta-row"><span class="agent-label">Firing on</span><span class="agent-meta-val">VIN decode identifies HV vehicle</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Runs against</span><span class="agent-meta-val">CCC ONE mobile · VIN decode</span></div>
-                        <div class="agent-meta-row"><span class="agent-label">Writes to</span><span class="agent-meta-val">Tech device · estimate · compliance log</span></div>
+                        <div class="agent-meta-row"><span class="agent-label">Delivers</span><span class="agent-meta-val">Tech device · compliance line set · quarantine log</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Monthly upside</span><span class="agent-meta-val">~$280 per EV processed</span></div>
                         <div class="agent-meta-row"><span class="agent-label">Real upside</span><span class="agent-meta-val">Liability insulation</span></div>
                     </div>
