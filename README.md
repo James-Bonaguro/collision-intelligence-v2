@@ -10,7 +10,7 @@ April 2026 · Intersection Strategies LLC
 This repo is the second generation of a three-version learning cycle.
 
 - **V1** (Opus 4.6, 13 pages, 13,639 lines): exhaustive internal briefing. Industry-native voice. Approved by field readers including James's uncle (Mercedes-Benz dealership owner). Repo: [collision-intelligence](https://github.com/James-Bonaguro/collision-intelligence).
-- **V2.0** (Opus 4.7, 6 pages, ~3,500 lines, April 16): mobile-first redesign with aggressive plain-English. **Failed the uncle test.** Quote: *"There's no emotion in this; there's no reason anyone should care. It's like I'm talking to a baby."* The plain-English brief was the wrong interpretation of "simplify."
+- **V2.0** (Opus 4.7, 6 pages, ~3,500 lines, April 16): mobile-first redesign with aggressive plain-English. **Failed the field test by a warm network connect for discovey.** Quot: *"There's no emotion in this; there's no reason anyone should care. It's like I'm talking to a baby."* The plain-English brief was the wrong interpretation of "simplify."
 - **V2.1** (Opus 4.7, 6 pages, this repo, April 16 same-day correction): **voice transplant in place.** V1's industry-native voice, peer-to-peer register, and declarative headlines — transplanted onto V2.0's 6-page structural bones.
 
 Field deployment strategy: V1 stays live as the maximalist reference. V2.1 replaces V2.0 at the same URL (`james-bonaguro.github.io/collision-intelligence-v2`). Both go into shop visits; whichever reads better becomes the external-facing standard.
