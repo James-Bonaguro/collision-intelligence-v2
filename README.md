@@ -1,4 +1,4 @@
-# Collision Intelligence — V2.1 (Field Edition, Voice-Corrected)
+# Auto Collision Intelligence
 
 **Industry-native rewrite of V2.0.**
 April 2026 · Intersection Strategies LLC
